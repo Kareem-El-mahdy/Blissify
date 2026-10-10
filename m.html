@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Intro</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; overflow: hidden; }
+        
+        .intro-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            background-color: #18164a;
+        }
+        
+        .intro-message {
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            opacity: 0;
+            position: absolute;
+            font-size: 6rem; /* Default for PC */
+            animation: bounceIn 1s ease-in-out forwards;
+        }
+        
+        @media (max-width: 768px) {
+            .intro-message {
+                font-size: 3rem; /* Adjust for mobile */
+            }
+        }
+        
+        .message-one { animation: fadeOut 2s ease-in-out 1s forwards, bounceIn 1s ease-in-out forwards; }
+        .message-two { animation: fadeIn 2s ease-in-out 3s forwards, bounceIn 1s ease-in-out 3s forwards; }
+        
+        .screen-sections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section {
+            flex: 1;
+            background-color: #18164a;
+            animation: shrinkSections 1.5s ease-in-out forwards;
+            animation-delay: 5s;
+        }
+        
+        @keyframes shrinkSections {
+            0% { height: 20%; opacity: 1; }
+            100% { height: 0; opacity: 0; }
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-container" id="intro-container">
+        <div class="screen-sections">
+            <div class="section"></div>
+            <div class="section"></div>
+            <div class="section"></div>
+            <div class="section"></div>
+            <div class="section"></div>
+        </div>
+        <div class="intro-message message-one">Building Bonds</div>
+        <div class="intro-message message-two">Boosting Performance</div>
+    </div>
+    
+    <main>
+        <h1>Main Website Content</h1>
+        <p>This is the main content of your website.</p>
+    </main>
+</body>
+</html>
