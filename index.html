@@ -30,7 +30,7 @@
 
 
   <title>Blissify</title>
-<link rel="icon" type="image/png" href="/assets/logos/b.png">
+<link rel="icon" type="image/png" href="assets/logos/b.png">
 
   <!-- Removed duplicate viewport meta tag -->
   <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -7632,7 +7632,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 
         .partt {
           width: calc(1100px * 4);
-          animation: part 20s linear infinite;
+          animation: part 50s linear infinite;
           animation-fill-mode: forwards;
           will-change: transform;
         }
@@ -10050,13 +10050,14 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     pointer-events: none;
   }
   .ft__mark img {
-    display: block;
-    width: 100%; height: 100%;
-    max-width: none;
-    object-fit: contain;
-    object-position: center bottom;
-    opacity: .08;
-  }
+  display: block;
+  width: 100%; height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: brightness(100);
+  opacity: .08;
+}
   /* on a real server the PNG is used as a mask, so the mark is one flat brand tone */
   .ft__mark.is-masked {
     background: var(--ft-mark);
