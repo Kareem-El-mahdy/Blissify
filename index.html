@@ -7005,6 +7005,38 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 <noscript><style>.intro-container { display:none !important; }</style></noscript>
 <link rel="preload" as="image" href="assets/logos/Main.png" fetchpriority="high">
 <link rel="preload" as="image" href="assets/logos/blissify%20model%20icon%20only(1).png" fetchpriority="high">
+
+<style id="selected-photo-layout">
+.vm__ceo-photo { aspect-ratio:1; object-fit:cover; }
+</style>
+
+<style id="contact-and-hero-update">
+/* Open contact section: plain service choices and labelled form fields. */
+.talk { padding:clamp(64px,7vw,100px) 5%; }
+.talk .talk__card { max-width:1280px; border:0; border-radius:0; background:transparent; overflow:visible; }
+.talk .talk__form { padding:0; }
+.talk .talk__main { grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(32px,6vw,88px); }
+.talk .talk__tiles { gap:8px; }
+.talk .talk__tile-box { min-height:48px; padding:10px 0; border:0; border-radius:0; background:transparent; color:#fff; }
+.talk .talk__tile-mark { width:20px; height:20px; border-width:2px; border-radius:4px; }
+.talk .talk__tile input:checked + .talk__tile-box { background:transparent; color:var(--talk-yellow); }
+.talk .talk__tile input:checked + .talk__tile-box .talk__tile-mark { border-color:var(--talk-yellow); background:var(--talk-yellow); box-shadow:inset 0 0 0 4px var(--talk-navy); }
+.talk .talk__tile input:focus-visible + .talk__tile-box { outline-color:var(--talk-yellow); }
+.talk .talk__label { margin:0 0 8px; }
+.talk .talk__input { min-height:52px; padding:14px 16px; border:1px solid rgba(255,255,255,.3); border-radius:8px; }
+.talk textarea.talk__input { min-height:160px; border-radius:8px; }
+.talk .talk__direct { padding:0; border-radius:0; background:transparent; gap:18px 44px; }
+.talk .talk__direct a { color:#fff; }
+/* Mission and consultation action below the existing hero heading. */
+.hero_mission-row { display:flex; align-items:center; justify-content:flex-end; gap:24px; margin-top:24px; margin-left:24%; }
+.hero_mission-copy { flex:1; min-width:0; margin:0; font-family:bb,sans-serif; font-size:.8rem; font-weight:400; line-height:1.3; letter-spacing:0; color:#fff; text-align:left; opacity:1; }
+.hero_consultation { order:-1; display:inline-flex; flex:none; align-items:center; justify-content:center; gap:6px; min-height:0; padding:.55rem .85rem; border:0; border-radius:999px; background:#FFC70A; color:#1b1851; font-family:bb,sans-serif; font-size:.85rem; line-height:1; font-weight:600; text-decoration:none; white-space:nowrap; }
+.hero_consultation .button_icon { width:14px; height:14px; object-fit:contain; }
+.hero_consultation:hover { background:#FFC70A; color:#1b1851; }
+.hero_consultation:focus-visible { outline:3px solid #fff; outline-offset:4px; }
+@media(max-width:899px) { .talk .talk__main { grid-template-columns:1fr; } }
+@media(max-width:767px) { .hero_mission-row { flex-direction:column; align-items:flex-start; gap:14px; margin-top:20px; margin-left:0; } .hero_consultation { order:0; } .hero_mission-copy { font-size:.85rem; line-height:1.4; } }
+</style>
 </head>
 
 <body>
@@ -7237,136 +7269,12 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
                             class="span_heading _06"></span>
                         </h1>
                       </div>
+                      <div class="hero_mission-row">
+                        <p class="hero_mission-copy">Blissify is on a mission to bridge the gap between employees and employers to foster a thriving workplace culture and increase employee engagement</p>
+                        <a class="hero_consultation button_link secondary w-inline-block" href="#contactus"><img class="button_icon secondary" src="data:image/avif;base64,AAAAHGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZgAAAZhtZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAAA5waXRtAAAAAAABAAAANGlsb2MAAAAAREAAAgACAAAAAAG8AAEAAAAAAAACkQABAAAAAARNAAEAAAAAAAAAGQAAADhpaW5mAAAAAAACAAAAFWluZmUCAAAAAAEAAGF2MDEAAAAAFWluZmUCAAAAAAIAAGF2MDEAAAAA12lwcnAAAACxaXBjbwAAABNjb2xybmNseAACAAIABoAAAAAMYXYxQ4EAHAAAAAAUaXNwZQAAAAAAAABaAAAAWgAAAA5waXhpAAAAAAEIAAAAOGF1eEMAAAAAdXJuOm1wZWc6bXBlZ0I6Y2ljcDpzeXN0ZW1zOmF1eGlsaWFyeTphbHBoYQAAAAAMYXYxQ4EgAgAAAAAUaXNwZQAAAAAAAABaAAAAWgAAABBwaXhpAAAAAAMICAgAAAAeaXBtYQAAAAAAAAACAAEEgYYHiAACBIIDhIUAAAAaaXJlZgAAAAAAAAAOYXV4bAACAAEAAQAAArJtZGF0EgAKBhgZrNlhUDKEBUSAAwwU3lPLuSNfBVfdHlxmRDRbqw6gka5VADGzyamB9ROelNVR7ovvrGBYeXnHudJ1d/fMuyQ4E0PCc3EoSV6UQv+8wGDg0v3vKghiv63UtqIOp7V7jgKz6N0Io7C6vZX+ToLtzdL7OYoy0qi+9XtBpHye0OQKBkWRGJ2hCvOfmx3TohrOleS1uOgdO9ZB5Vf/a1ARGMn3y+IZq8teoKiISrcEjNLfpjkP8GpHWxY4RHau8t4HW4K4FES7LlItVMBMjgnLzzbQMP/Qs/giIeY6YjqeuqMDZAWM6OOfXTJ3oSlA5MqEogUxm7oEGafEG7w0f0TXWNSva7X8YRLpT0BWO0i62BwqDfsAE7A1VF7ogxSNX8lIWbpARZYHDe9LYAhdJDesXYPrh3Iisg6wIfmi3bgroVeYGkXBkpJbD/CRkqsFEf4n4uqJ4Cv+d1SfAr4mPpuON1fjCL5Qkhzd8pA7wc31efFe7GiJPuJo8gUamKW5XN+ymGH7oRhMIpyO6OzhIpFGwi9Usyi0Gy//FlIhgBTTvV9FcpwpYcFjrJsX4JBLktWJkYCpS2IwO4AhgIS+g7AK+8+f/jknAy5apcAvyyuTPLtJEeFqAhjWvhUWeIRSusW2UCBdS2eERssyFS8Fe22KJ83DzlV1rMGfC/pqB5C/l99hfabUsxXxQsrYzwKVWyzoI3EvViIlKiuv+t1TAt2EesJHK8QSzOtNrPMLvTkuw3ayL9sj926jZRQCQMyx5Haq41GXw3Gq3yufwFrsYIyYvwbhtF2w0u51e0QV7CPWypksyW5tbQKGxAwOshwTzUDq9661hXtud9c5w0NrTABCnvdFrgb4Uxr59c3FWH+AEgAKBjgZrNlgkDINEgAAABQBxXhl+8qjwA==" alt="" width="14" height="14"><span class="button_text">Book a consultation</span></a>
+                      </div>
                       
                     </div>
-                    <!-- =====================================================================
-             BLISSIFY — HERO GLASS CARD v2 (right side)
-             Vision + Mission + "Book A Consultation" button inside the glass.
-             Paste it as a direct child of .hero_content-wrapper:
-             right BEFORE the line   <div class="hero_background-images">
-             CSS is scoped with .hv-
-             ===================================================================== -->
-             <style>
-               .hv {
-                 --hv-yellow: var(--brand-yellow, #FFC70A);
-                 --hv-base: rgba(27, 24, 81, .52);
-                 position: absolute;
-                 z-index: 2;
-                 /* right side, vertically centred (no transform, so the intro animation can use it) */
-                 right: clamp(20px, 4vw, 72px);
-                 top: 0; bottom: 0;
-                 margin: auto 0;
-                 height: max-content;
-                 width: clamp(300px, 29vw, 420px);
-                 box-sizing: border-box;
-                 display: flex; flex-direction: column;
-                 color: #fff;
-                 font-family: bb, sans-serif;
-                 border-radius: 28px;
-                 border: 1px solid rgba(255, 255, 255, .42);
-                 background:
-                   linear-gradient(120deg, rgba(255, 226, 140, .18), rgba(255, 170, 170, .16)),   /* pastel yellow -> coral */
-                   linear-gradient(var(--hv-base), var(--hv-base)),                               /* light navy base = readable text */
-                   linear-gradient(145deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .05));   /* glass sheen */
-                 -webkit-backdrop-filter: blur(18px) saturate(150%);
-                         backdrop-filter: blur(18px) saturate(150%);
-                 box-shadow: 0 18px 50px rgba(0, 0, 0, .30), inset 0 1px 0 rgba(255, 255, 255, .5);
-                 animation: hvIn .9s .25s cubic-bezier(.2, .7, .2, 1) both;
-               }
-               @keyframes hvIn { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
-             
-               @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-                 .hv { background: linear-gradient(120deg, rgba(255, 226, 140, .18), rgba(255, 170, 170, .16)), rgba(27, 24, 81, .84); }
-               }
-             
-               .hv__item { padding: clamp(16px, 1.5vw, 22px) clamp(18px, 1.8vw, 26px); }
-               .hv__item + .hv__item { border-top: 1px solid rgba(255, 255, 255, .28); }
-             
-               .hv__title {
-                 margin: 0 0 8px;
-                 font-family: bb, sans-serif;
-                 font-size: clamp(1.3rem, 1.8vw, 1.7rem);
-                 font-weight: 600; line-height: 1.1; letter-spacing: 1px;
-                 color: var(--hv-yellow);
-                 text-shadow: 0 1px 8px rgba(27, 24, 81, .55);
-               }
-               .hv__title span { color: #fff; }
-             
-               /* beats the global p { opacity:.65 } */
-               .hv .hv__text {
-                 margin: 0; opacity: 1;
-                 font-family: bb, sans-serif; font-weight: 400;
-                 font-size: clamp(.84rem, .98vw, .96rem); line-height: 1.55;
-                 color: rgba(255, 255, 255, .95);
-                 text-shadow: 0 1px 8px rgba(27, 24, 81, .55);
-               }
-             
-               .hv__cta {
-                 padding: clamp(14px, 1.3vw, 18px) clamp(18px, 1.8vw, 26px) clamp(18px, 1.6vw, 24px);
-                 border-top: 1px solid rgba(255, 255, 255, .28);
-                 display: flex;
-               }
-               .hv__cta .button_link { width: 100%; justify-content: center; box-sizing: border-box; }
-             
-               /* ---------- mobile: card sits under the navbar, full width ---------- */
-               @media (max-width: 767px) {
-                 .hv {
-                   --hv-base: rgba(27, 24, 81, .66);   /* phones show a much more zoomed photo behind the card */
-                   position: relative;
-                  left: auto; right: auto; top: auto; bottom: auto;
-                  width: auto; margin: 0;
-                   border-radius: 22px;
-                 }
-                 .buldingbondstext { font-size: clamp(2rem, 11vw, 3.4rem); }
-                 .hv__item { padding: 13px 18px; }
-                 .hv__title { font-size: 1.25rem; margin-bottom: 5px; }
-                 .hv .hv__text { font-size: .85rem; line-height: 1.5; }
-                 .hv__cta { padding: 12px 18px 16px; }
-               }
-               @media (max-width: 479px) {
-                 .hv { border-radius: 18px; }
-                 .hv__item { padding: 10px 14px; }
-                 .hv__title { font-size: 1.1rem; margin-bottom: 4px; }
-                 .hv .hv__text { font-size: .8rem; line-height: 1.42; }
-                 .hv__cta { padding: 10px 14px 14px; }
-               }
-               @media (max-width: 767px) and (max-height: 700px) {
-                 .buldingbondstext { font-size: 2.5rem; }   /* short phones: keep the title clear of the card */
-                 .hv .hv__text { font-size: .78rem; line-height: 1.38; }
-                 .hv__item { padding: 8px 14px; }
-               }
-             
-               @media (max-width: 767px) and (max-height: 600px) {
-                 .buldingbondstext { font-size: 2rem; }
-                
-                 .hv .hv__text { font-size: .74rem; line-height: 1.34; }
-                 .hv__title { font-size: 1rem; margin-bottom: 3px; }
-                 .hv__item { padding: 7px 12px; }
-                 .hv__cta { padding: 8px 12px 10px; }
-               }
-             
-               @media (prefers-reduced-motion: reduce) { .hv { animation: none; } }
-             </style>
-             
-             <div class="hv" role="region" aria-label="Our vision and mission">
-               <div class="hv__item">
-                 <h2 class="hv__title"><span>Our</span> vision</h2>
-                 <p class="hv__text">Bridges the gap between employees and employers, fostering a thriving workplace culture and increasing employee engagement.</p>
-               </div>
-               <div class="hv__item">
-                 <h2 class="hv__title"><span>Our</span> mission</h2>
-                 <p class="hv__text">We are a human-centered organization committed to creating workplaces where employees feel: valued, engaged, and empowered to excel.</p>
-               </div>
-             
-               <!-- BUTTON (same markup/classes as the old hero button; text = Book A Consultation) -->
-               <div class="hv__cta">
-                 <a href="#contactus" class="button_link secondary w-inline-block"><img loading="eager"
-                     src="https://cdn.prod.website-files.com/6708d98bc7ddbb18614ffb9a/670ebe78b08e15897603af2b_icon-team.avif"
-                     alt="" class="button_icon secondary" />
-                   <div style="font-family: bb;padding-right: 1rem;color: #000;" class="button_text">Book A Consultation</div>
-                 </a>
-               </div>
-             </div>
                   </div>
                 </div>
               </div>
@@ -7377,53 +7285,43 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
                 <div id="w-node-cd2895fa-0c78-65e0-b7be-b632d983823c-614ffb99"
                   class="  hero_image-wrapper hide-mobile-landscape">
                   <img style="border-radius: 10px;" id="w-node-cd2895fa-0c78-65e0-b7be-b632d983823d-614ffb99"
-                    sizes="100vw" alt="" src="assets/images/DSC06403.webp" loading="eager" class="hero_image" />
+                    class="hero_image"  src="assets/selected-photos/hero-01.webp" alt="Blissify workshop and team activities" loading="eager" width="1600" height="900"/>
                 </div>
                 <div id="w-node-cd2895fa-0c78-65e0-b7be-b632d983823e-614ffb99" class="hero_image-wrapper">
                   <img style="border-radius: 10px;" id="w-node-cd2895fa-0c78-65e0-b7be-b632d983823f-614ffb99"
-                    sizes="100vw" alt="" src="assets/images/IMG_4894.webp" loading="eager" class="hero_image" />
+                    class="hero_image"  src="assets/selected-photos/hero-02.webp" alt="Blissify workshop and team activities" loading="eager" width="1600" height="1067"/>
                 </div>
                 <div id="w-node-cd2895fa-0c78-65e0-b7be-b632d9838240-614ffb99"
                   class="hero_image-wrapper hide-mobile-landscape">
                   <img style="border-radius: 10px;" id="w-node-cd2895fa-0c78-65e0-b7be-b632d9838241-614ffb99"
-                    sizes="100vw" alt="" src="assets/images/DSC06655.webp" loading="eager" class="hero_image" />
+                    class="hero_image"  src="assets/selected-photos/hero-03.webp" alt="Blissify workshop and team activities" loading="eager" width="1600" height="900"/>
                 </div>
                 <div id="w-node-cd2895fa-0c78-65e0-b7be-b632d9838242-614ffb99"
                   class="hero_image-wrapper hide-mobile-landscape">
                   <img style="border-radius: 10px;" id="w-node-cd2895fa-0c78-65e0-b7be-b632d9838243-614ffb99"
-                    sizes="100vw" alt="" src="assets/images/IMG_2178.webp" loading="eager" class="hero_image" />
+                    class="hero_image"  src="assets/selected-photos/hero-04.webp" alt="Blissify workshop and team activities" loading="eager" width="1600" height="900"/>
                 </div>
                 <div id="w-node-cd2895fa-0c78-65e0-b7be-b632d9838244-614ffb99" class="hero_image-wrapper">
-                  <div style="border-radius: 10px;"
-                    data-poster-url="https://cdn.prod.website-files.com/6708d98bc7ddbb18614ffb9a%2F670d158b63b51e9383d08228_background-video-rudolf-2-poster-00001.webp"
-                    data-video-urls="https://cdn.prod.website-files.com/6708d98bc7ddbb18614ffb9a%2F670d158b63b51e9383d08228_background-video-rudolf-2-transcode.mp4,https://cdn.prod.website-files.com/6708d98bc7ddbb18614ffb9a%2F670d158b63b51e9383d08228_background-video-rudolf-2-transcode.webm"
-                    data-autoplay="true" data-loop="true" data-wf-ignore="true"
-                    class="background_video w-background-video w-background-video-atom">
-                    <video src="assets/images/team.webp" id="eaa92cc6-d3b6-7d43-947a-6d41f6172c5b-video" autoplay=""
-                      loop="" style=' background-image:url("assets/images/blissify.webp")' muted="" playsinline=""
-                      data-wf-ignore="true" data-object-fit="cover">
-
-                    </video>
-                  </div>
+                  <img id="eaa92cc6-d3b6-7d43-947a-6d41f6172c5b-video" class="hero_image" style="border-radius:10px;object-fit:cover;object-position:50% 40%;" src="assets/selected-photos/hero-05-team.webp" alt="Blissify team" loading="eager" width="2200" height="1467">
                 </div>
                 <div id="w-node-cd2895fa-0c78-65e0-b7be-b632d9838246-614ffb99"
                   class="hero_image-wrapper hide-mobile-landscape">
                   <img style="border-radius: 10px;" id="w-node-cd2895fa-0c78-65e0-b7be-b632d9838247-614ffb99"
-                    sizes="100vw" alt="" src="assets/images/IMG_2179.webp" loading="eager" class="hero_image" />
+                    class="hero_image"  src="assets/selected-photos/hero-06.webp" alt="Blissify workshop and team activities" loading="eager" width="1600" height="900"/>
                 </div>
                 <div id="w-node-cd2895fa-0c78-65e0-b7be-b632d9838248-614ffb99"
                   class="hero_image-wrapper hide-mobile-landscape">
                   <img style="border-radius: 10px;" id="w-node-cd2895fa-0c78-65e0-b7be-b632d9838249-614ffb99"
-                    sizes="100vw" alt="" src="assets/images/ACDD.webp" loading="eager" class="hero_image" />
+                    class="hero_image"  src="assets/selected-photos/hero-07.webp" alt="Blissify workshop and team activities" loading="eager" width="1600" height="904"/>
                 </div>
                 <div id="w-node-cd2895fa-0c78-65e0-b7be-b632d983824a-614ffb99" class="hero_image-wrapper">
                   <img style="border-radius: 10px;" id="w-node-cd2895fa-0c78-65e0-b7be-b632d983824b-614ffb99"
-                    sizes="100vw" alt="" src="assets/images/CM109715.webp" loading="eager" class="hero_image" />
+                    class="hero_image"  src="assets/selected-photos/hero-08.webp" alt="Blissify workshop and team activities" loading="eager" width="1600" height="900"/>
                 </div>
                 <div id="w-node-cd2895fa-0c78-65e0-b7be-b632d983824c-614ffb99"
                   class="hero_image-wrapper hide-mobile-landscape">
                   <img style="border-radius: 10px;" id="w-node-cd2895fa-0c78-65e0-b7be-b632d983824d-614ffb99"
-                    sizes="100vw" alt="" src="assets/images/DSC_2553.webp" loading="eager" class="hero_image" />
+                    class="hero_image"  src="assets/selected-photos/hero-09.webp" alt="Blissify workshop and team activities" loading="eager" width="1600" height="900"/>
                 </div>
               </div>
             </div>
@@ -7480,7 +7378,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 
                     </p>
                     <div data-w-id="ea1d41ce-7bd7-f50d-7540-44804325f06e" style="opacity:0" class="button-group">
-                      <a href="#services" data-w-id="ea1d41ce-7bd7-f50d-7540-44804325f06f"
+                      <a href="#about" data-w-id="ea1d41ce-7bd7-f50d-7540-44804325f06f"
                         class="button_link secondary w-inline-block"><img loading="eager"
                           src="https://cdn.prod.website-files.com/6708d98bc7ddbb18614ffb9a/670ebe78b08e15897603af2b_icon-team.avif"
                           alt="" class="button_icon secondary" />
@@ -7639,6 +7537,17 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 
 
 
+        /* bigger partner logos in the moving strip */
+        .brandsCarousel { max-height: 106px !important; height: 106px !important; }
+        .brandsCarousel::before, .brandsCarousel::after { height: 106px !important; }
+        .partt { height: 106px !important; align-items: center; }
+        .brandsCarousel .brandLogo {
+          flex: none;
+          width: 160px !important;
+          height: 70px !important;
+          margin: 0 12px !important;
+          padding: 0 !important;
+        }
         .brandLogo {
 
           align-items: center;
@@ -7851,160 +7760,210 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 
 
         <!-- =====================================================================
-             BLISSIFY — CHALLENGES WE ADDRESS
-             Replaces the <iframe class="challanges" src="chalanges.html">.
-             Same look as before (title on the left, four points in a 2x2 cross
-             on the right), but it is now a normal section of this page:
-             no inner scrollbar, and its height follows its content.
-             CSS is scoped with the .chal prefix.
+             BLISSIFY — HR TRANSFORMATION IN SIX PHASES
+             Replaces the old "Challenges We Address" section.
+             A staircase of bars: every phase is one step higher than the one before.
+             Phases 1-6 are the core path (navy, getting darker as HR matures),
+             the 7th (Employer Branding, optional) is the red step at the top.
+             The bars grow up once when the section scrolls into view.
+             Phone: the steps turn into a list, each bar a little wider than the last.
+             CSS is scoped with the .ph prefix.
+
+             TO EDIT A STEP: change the text inside its <li>. Its colour is --c,
+             its height on desktop is --h (percent of the tallest step).
              ===================================================================== -->
         <style>
-          .chal {
-            --chal-navy: var(--brand-navy, #1b1851);
-            --chal-yellow: var(--brand-yellow, #FFC70A);
-            --chal-line: rgba(27, 24, 81, .22);
-            padding: clamp(48px, 8vw, 130px) 5%;
-            box-sizing: border-box;
+          .ph {
+            --ph-navy: var(--brand-navy, #1b1851);
+            --ph-yellow: var(--brand-yellow, #FFC70A);
+            --ph-red: var(--brand-red, #EF4242);
+            padding: clamp(56px, 8vw, 120px) 5%;
             background: var(--base-color-neutral--neutral-lightest, #eee);
-            color: var(--chal-navy);
+            color: var(--ph-navy);
             font-family: bb, sans-serif;
             overflow: hidden;
           }
-          .chal *, .chal *::before, .chal *::after { box-sizing: border-box; }
+          .ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
+          .ph__inner { max-width: 1240px; margin: 0 auto; }
 
-          .chal__inner {
-            display: grid;
-            grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
-            align-items: center;
-            gap: clamp(32px, 5vw, 80px);
-            max-width: 1400px;
-            margin: 0 auto;
-          }
-
-          .chal__title {
+          .ph .ph__eyebrow {
             margin: 0;
-            font-family: bb, sans-serif;
-            font-size: clamp(1.9rem, 4.2vw, 4.5rem);
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -1px;
-            text-transform: uppercase;
-            color: var(--chal-navy);
-          }
-          .chal__title span { color: var(--chal-yellow); }
-
-          /* 2 x 2 with the cross lines between the four points */
-          .chal__grid { display: grid; grid-template-columns: 1fr 1fr; }
-          .chal__item { min-width: 0; padding: clamp(24px, 3.4vw, 60px) clamp(18px, 2.6vw, 44px); }
-          .chal__item:nth-child(odd)   { border-right: 1px solid var(--chal-line); padding-left: 0; }
-          .chal__item:nth-child(even)  { padding-right: 0; }
-          .chal__item:nth-child(-n+2)  { border-bottom: 1px solid var(--chal-line); padding-top: 0; }
-          .chal__item:nth-child(n+3)   { padding-bottom: 0; }
-
-          .chal__icon {
-            display: block;
-            width: 52px; height: 52px;
-            object-fit: contain;
-            color: var(--chal-yellow);
-          }
-          .chal__name {
-            margin: clamp(14px, 1.6vw, 24px) 0 0;
-            font-family: bb, sans-serif;
-            font-size: clamp(1.25rem, 1.8vw, 1.625rem);
-            font-weight: 600;
-            line-height: 1.35;
-            letter-spacing: -.3px;
-            color: var(--chal-navy);
-          }
-          .chal__name span { color: var(--chal-yellow); }
-          .chal .chal__text {
-            margin: 10px 0 0;
             opacity: 1;
             font-family: bb, sans-serif;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.6;
-            letter-spacing: .16px;
+            font-size: .95rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             text-align: inherit;
-            color: var(--chal-navy);
+            color: var(--ph-red);
           }
+          .ph__title {
+            margin: 0;
+            font-family: bb, sans-serif;
+            font-size: clamp(2rem, 4.2vw, 3.6rem);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -.5px;
+            color: var(--ph-navy);
+          }
+          .ph__title span { color: var(--ph-yellow); }
 
-          /* entrance: each point slides out from the middle of the cross (only when JS is on) */
-          .chal--anim .chal__item { opacity: 0; transition: opacity .6s ease, transform .6s ease; }
-          .chal--anim .chal__item:nth-child(1) { transform: translate(28px, 28px); }
-          .chal--anim .chal__item:nth-child(2) { transform: translate(-28px, 28px); transition-delay: .1s; }
-          .chal--anim .chal__item:nth-child(3) { transform: translate(28px, -28px); transition-delay: .2s; }
-          .chal--anim .chal__item:nth-child(4) { transform: translate(-28px, -28px); transition-delay: .3s; }
-          .chal--anim.chal--in .chal__item { opacity: 1; transform: none; }
+          /* ---------- the staircase ---------- */
+          .ph__steps {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            align-items: end;
+            gap: clamp(8px, 1vw, 14px);
+            height: clamp(360px, 36vw, 470px);
+            margin: clamp(36px, 5vw, 64px) 0 0;
+            padding: 0;
+            border-bottom: 2px solid var(--ph-navy);
+          }
+          .ph__step {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            min-width: 0;
+          }
+          .ph__name {
+            margin: 0 0 10px;
+            font-family: bb, sans-serif;
+            font-size: clamp(.82rem, 1.05vw, 1.02rem);
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--ph-navy);
+          }
+          .ph__tag {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 2px 9px;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            background: var(--ph-yellow);
+            color: var(--ph-navy);
+          }
+          .ph__tag--opt { background: var(--ph-red); color: #fff; }
+
+          .ph__bar {
+            height: var(--h);
+            padding: clamp(12px, 1.3vw, 18px) clamp(10px, 1.2vw, 16px);
+            border-radius: 12px 12px 0 0;
+            background: var(--c);
+            color: #fff;
+            transform-origin: bottom;
+          }
+          .ph__label {
+            display: block;
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: .75;
+          }
+          .ph__num {
+            display: block;
+            margin-top: 2px;
+            font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+            font-weight: 700;
+            line-height: 1;
+          }
+          /* the optional top step: red, with an outline so it reads as "extra" */
+          .ph__step--opt .ph__bar { box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .35); }
+
+          /* grow-up entrance (only when JS is on) */
+          .ph--anim .ph__bar { transform: scaleY(0); transition: transform .7s cubic-bezier(.2, .7, .2, 1); }
+          .ph--anim .ph__name { opacity: 0; transition: opacity .5s ease; }
+          .ph--anim.ph--in .ph__bar { transform: none; }
+          .ph--anim.ph--in .ph__name { opacity: 1; }
+          .ph--anim .ph__step:nth-child(2) .ph__bar, .ph--anim .ph__step:nth-child(2) .ph__name { transition-delay: .08s; }
+          .ph--anim .ph__step:nth-child(3) .ph__bar, .ph--anim .ph__step:nth-child(3) .ph__name { transition-delay: .16s; }
+          .ph--anim .ph__step:nth-child(4) .ph__bar, .ph--anim .ph__step:nth-child(4) .ph__name { transition-delay: .24s; }
+          .ph--anim .ph__step:nth-child(5) .ph__bar, .ph--anim .ph__step:nth-child(5) .ph__name { transition-delay: .32s; }
+          .ph--anim .ph__step:nth-child(6) .ph__bar, .ph--anim .ph__step:nth-child(6) .ph__name { transition-delay: .40s; }
+          .ph--anim .ph__step:nth-child(7) .ph__bar, .ph--anim .ph__step:nth-child(7) .ph__name { transition-delay: .48s; }
           @media (prefers-reduced-motion: reduce) {
-            .chal--anim .chal__item { opacity: 1; transform: none; transition: none; }
+            .ph--anim .ph__bar, .ph--anim .ph__name { transform: none; opacity: 1; transition: none; }
           }
 
-          /* tablet: title on top, the cross under it */
-          @media (max-width: 991px) {
-            .chal__inner { grid-template-columns: 1fr; }
-          }
-          /* phone: one column, centred, a line between the points */
-          @media (max-width: 767px) {
-            .chal__title { letter-spacing: -.5px; }
-            .chal__grid { grid-template-columns: 1fr; }
-            .chal__item,
-            .chal__item:nth-child(odd),
-            .chal__item:nth-child(even),
-            .chal__item:nth-child(-n+2),
-            .chal__item:nth-child(n+3) {
-              padding: 32px 0;
-              border: 0;
-              border-bottom: 1px solid var(--chal-line);
-              text-align: center;
+          /* ---------- tablet / phone: a list, each bar a little wider ---------- */
+          @media (max-width: 860px) {
+            .ph__steps {
+              grid-template-columns: 1fr;
+              align-items: stretch;
+              gap: 10px;
+              height: auto;
+              border-bottom: 0;
+              border-left: 2px solid var(--ph-navy);
             }
-            .chal__item:first-child { padding-top: 0; }
-            .chal__item:last-child { padding-bottom: 0; border-bottom: 0; }
-            .chal__icon { margin: 0 auto; }
-            .chal--anim .chal__item:nth-child(n) { transform: translateY(20px); }
-            .chal--anim.chal--in .chal__item:nth-child(n) { transform: none; }
+            .ph__step { flex-direction: row-reverse; justify-content: flex-end; align-items: center; height: auto; }
+            .ph__bar {
+              flex: none;
+              width: calc(var(--h) * .55 + 60px);
+              height: auto;
+              min-height: 64px;
+              border-radius: 0 12px 12px 0;
+              transform-origin: left;
+            }
+            .ph--anim .ph__bar { transform: scaleX(0); }
+            .ph__name { margin: 0 0 0 14px; font-size: 1rem; }
+            .ph__num { font-size: 1.6rem; }
           }
         </style>
 
-        <section class="chal" aria-labelledby="chal-title">
-          <div class="chal__inner">
-            <h2 class="chal__title" id="chal-title">Challenges <br><span>We</span> <br>Address</h2>
+        <section class="ph" aria-labelledby="ph-title">
+          <div class="ph__inner">
+            <h2 class="ph__title" id="ph-title">HR Transformation in Six Phases</h2>
 
-            <div class="chal__grid">
-              <div class="chal__item">
-                <img class="chal__icon" src="assets/images/owb.png" alt="" width="52" height="52" loading="eager">
-                <h3 class="chal__name">Overwhelmed <span>Business</span> Owners</h3>
-                <p class="chal__text">Business owners often get caught up in daily operations, neglecting team nurturing. This oversight can result in disengagement, reduced motivation, and lower productivity.</p>
-              </div>
-              <div class="chal__item">
-                <svg class="chal__icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M51.1875 49.0153H47.5672V20.5219C47.5672 20.3064 47.4816 20.0997 47.3292 19.9474C47.1769 19.795 46.9702 19.7094 46.7547 19.7094H39.2041C38.9887 19.7094 38.782 19.795 38.6296 19.9474C38.4772 20.0997 38.3916 20.3064 38.3916 20.5219V49.0153H36.2477V26.8338C36.2477 26.6183 36.1621 26.4116 36.0097 26.2593C35.8573 26.1069 35.6506 26.0213 35.4352 26.0213H27.8844C27.6689 26.0213 27.4622 26.1069 27.3099 26.2593C27.1575 26.4116 27.0719 26.6183 27.0719 26.8338V49.015H24.9279V33.1447C24.9279 32.9292 24.8423 32.7225 24.6899 32.5702C24.5376 32.4178 24.3309 32.3322 24.1154 32.3322H16.5648C16.3494 32.3322 16.1427 32.4178 15.9903 32.5702C15.8379 32.7225 15.7523 32.9292 15.7523 33.1447V49.0153H13.6084V39.4562C13.6084 39.2407 13.5228 39.034 13.3704 38.8817C13.218 38.7293 13.0113 38.6437 12.7959 38.6437H5.2454C5.02991 38.6437 4.82325 38.7293 4.67087 38.8817C4.5185 39.034 4.4329 39.2407 4.4329 39.4562V49.0153H0.8125C0.597012 49.0153 0.390349 49.1009 0.237976 49.2532C0.0856024 49.4056 0 49.6123 0 49.8278C0 50.0432 0.0856024 50.2499 0.237976 50.4023C0.390349 50.5547 0.597012 50.6403 0.8125 50.6403H51.1875C51.403 50.6403 51.6097 50.5547 51.762 50.4023C51.9144 50.2499 52 50.0432 52 49.8278C52 49.6123 51.9144 49.4056 51.762 49.2532C51.6097 49.1009 51.403 49.0153 51.1875 49.0153ZM7.77502 30.9184C7.5705 30.9179 7.37373 30.8402 7.22398 30.7009C7.07422 30.5616 6.9825 30.371 6.96711 30.1671C6.95172 29.9631 7.01381 29.7609 7.14098 29.6007C7.26814 29.4406 7.45103 29.3342 7.65314 29.303C18.5788 27.6387 28.6295 20.2392 35.3223 8.96114L31.4426 6.02202C31.3217 5.93041 31.2288 5.80676 31.1745 5.66508C31.1202 5.5234 31.1067 5.36934 31.1354 5.22036C31.1642 5.07138 31.2341 4.93343 31.3372 4.82212C31.4403 4.71082 31.5725 4.63062 31.7189 4.5906L43.4536 1.38782C43.5737 1.35505 43.6996 1.35028 43.8218 1.37389C43.9439 1.39749 44.0591 1.44884 44.1582 1.52397C44.2574 1.5991 44.338 1.69601 44.3938 1.80721C44.4496 1.91842 44.4792 2.04096 44.4801 2.16539L44.5743 14.3288C44.5754 14.4806 44.5341 14.6296 44.4549 14.7591C44.3757 14.8885 44.2619 14.9932 44.1262 15.0613C43.9906 15.1293 43.8386 15.1581 43.6875 15.1442C43.5364 15.1303 43.3922 15.0744 43.2712 14.9828L40.4032 12.8102C36.5466 17.8051 31.779 22.0247 26.3523 25.2457C20.342 28.7947 13.9255 30.7566 7.79685 30.9184H7.77502Z" fill="currentColor"/></svg>
-                <h3 class="chal__name">Enhancing <span>Employee</span> experience</h3>
-                <p class="chal__text">Blissify is committed to aligning employee experience with business goals, ensuring employees feel valued and heard, which is crucial for a productive workplace.</p>
-              </div>
-              <div class="chal__item">
-                <img class="chal__icon" src="assets/images/f.png" alt="" width="52" height="52" loading="eager">
-                <h3 class="chal__name">Focusing on <span>engagement</span></h3>
-                <p class="chal__text">We emphasize the vital role of employee engagement in business success, offering tools and strategies to enhance this experience effectively.</p>
-              </div>
-              <div class="chal__item">
-                <img class="chal__icon" src="assets/images/eee.png" alt="" width="52" height="52" loading="eager">
-                <h3 class="chal__name"><span>Boosting</span> Productivity</h3>
-                <p class="chal__text">By fostering a positive, engaging work environment where employees feel valued, we help increase motivation and drive overall business performance.</p>
-              </div>
-            </div>
+            <ol class="ph__steps">
+              <li class="ph__step" style="--h:22%; --c:#7d7aa8;">
+                <p class="ph__name">HR Gap Analysis &amp; Systems Audit</p>
+                <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">01</span></div>
+              </li>
+              <li class="ph__step" style="--h:32%; --c:#605d93;">
+                <p class="ph__name">Org Structure &amp; Job Analysis</p>
+                <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">02</span></div>
+              </li>
+              <li class="ph__step" style="--h:42%; --c:#4a4683;">
+                <p class="ph__name">Policies &amp; Procedures</p>
+                <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">03</span></div>
+              </li>
+              <li class="ph__step" style="--h:52%; --c:#383472;">
+                <p class="ph__name">Performance Management System</p>
+                <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">04</span></div>
+              </li>
+              <li class="ph__step" style="--h:62%; --c:#2a2663;">
+                <p class="ph__name">Learning &amp; Development Framework</p>
+                <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">05</span></div>
+              </li>
+              <li class="ph__step" style="--h:72%; --c:#1b1851;">
+                <p class="ph__name">HR Digitization <span class="ph__tag">Recommended</span></p>
+                <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">06</span></div>
+              </li>
+              <li class="ph__step ph__step--opt" style="--h:82%; --c:#EF4242;">
+                <p class="ph__name">Employer Branding <span class="ph__tag ph__tag--opt">Optional</span></p>
+                <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">07</span></div>
+              </li>
+            </ol>
           </div>
 
           <script>
-            /* plays the entrance once, when the section scrolls into view */
+            /* the bars grow up once, when the section scrolls into view */
             (function () {
-              var sec = document.querySelector('.chal');
+              var sec = document.querySelector('.ph');
               if (!sec || !('IntersectionObserver' in window)) return;
-              sec.classList.add('chal--anim');
+              sec.classList.add('ph--anim');
               var io = new IntersectionObserver(function (entries) {
                 for (var i = 0; i < entries.length; i++) {
-                  if (entries[i].isIntersecting) { sec.classList.add('chal--in'); io.disconnect(); }
+                  if (entries[i].isIntersecting) { sec.classList.add('ph--in'); io.disconnect(); }
                 }
-              }, { threshold: 0.1 });
+              }, { threshold: 0.25 });
               io.observe(sec);
             })();
           </script>
@@ -8211,6 +8170,117 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
      If the file is missing, the block shows an empty frame (no broken icon).
      ===================================================================== -->
 
+<!-- =====================================================================
+     BLISSIFY — OUR VISION / OUR MISSION + AMANY'S QUOTE (live-site layout)
+     Left: vision and mission under each other. Yellow line in the middle.
+     Right: Amany's photo, her quote under it and the signature.
+     CSS is scoped with the .vm prefix.
+     ===================================================================== -->
+<style>
+  .vm {
+    --vm-navy: var(--brand-navy, #1b1851);
+    --vm-yellow: var(--brand-yellow, #FFC70A);
+    background: var(--vm-navy);
+    color: #fff;
+    font-family: bb, sans-serif;
+    scroll-margin-top: 80px;
+  }
+  .vm *, .vm *::before, .vm *::after { box-sizing: border-box; }
+
+  .vm__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(32px, 7vw, 110px);
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(72px, 9vw, 130px) 6%;
+  }
+  .vm__line { align-self: stretch; background: var(--vm-yellow); }
+
+  .vm__item + .vm__item { margin-top: clamp(20px, 2.4vw, 32px); }
+  .vm .vm__title {
+    margin: 0 0 12px;
+    font-family: bb, sans-serif;
+    font-size: clamp(2.2rem, 4.4vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    letter-spacing: .5px;
+    color: var(--vm-yellow);
+  }
+  .vm__title span { color: #fff; }
+  .vm .vm__text {
+    margin: 0;
+    max-width: 30rem;
+    opacity: 1;
+    font-family: bb, sans-serif;
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: inherit;
+    color: rgba(255, 255, 255, .92);
+  }
+
+  /* right column: photo, quote, signature, all centred */
+  .vm__ceo { margin: 0; text-align: center; }
+  .vm__ceo-photo {
+    display: block;
+    width: min(100%, 280px); height: auto;
+    margin: 0 auto;
+    border-radius: 40px;
+    pointer-events: none;
+  }
+  .vm blockquote.vm__quote {
+    max-width: 22rem;
+    margin: 18px auto 0;
+    padding: 0;
+    border: 0;
+    font-family: bb, sans-serif;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, .92);
+  }
+  .vm__sign {
+    display: block;
+    width: 110px; height: auto;
+    margin: 10px auto 0;
+    pointer-events: none;
+  }
+
+  @media (max-width: 767px) {
+    .vm__inner { grid-template-columns: 1fr; gap: 0; text-align: center; padding: 72px 6%; }
+    .vm .vm__text { margin: 0 auto; }
+    .vm__line { width: 64px; height: 2px; margin: 40px auto; align-self: auto; }
+  }
+</style>
+
+<section class="vm" id="about" aria-label="Our vision and mission">
+  <div class="vm__inner">
+    <div class="vm__words">
+      <div class="vm__item">
+        <h2 class="vm__title"><span>Our</span> vision</h2>
+        <p class="vm__text">Bridges the gap between employees and employers, fostering a thriving workplace culture and increasing employee engagement.</p>
+      </div>
+      <div class="vm__item">
+        <h2 class="vm__title"><span>Our</span> mission</h2>
+        <p class="vm__text">We are a human-centered organization committed to creating workplaces where employees feel: valued, engaged, and empowered to excel.</p>
+      </div>
+    </div>
+
+    <div class="vm__line" aria-hidden="true"></div>
+
+    <figure class="vm__ceo">
+      <img class="vm__ceo-photo" src="assets/selected-photos/founder-portrait.webp" alt="Amany Helmy, CEO and Co-Founder" loading="eager" width="1000" height="1000">
+      <blockquote class="vm__quote">"Ideal workplace starts with a little fun &amp; a lot of connections. Where fun meets purpose, the workplace turns into a game. And I believe we are the game masters."</blockquote>
+      <img class="vm__sign" src="assets/images/sign1.png" alt="Amany's signature" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+
 <!-- anchor for the nav links (/#services, #services).
      Kept as an empty span on purpose: the old CSS rule "#services img { display:none }" (mobile)
      would hide our images if the id sat on the section itself. -->
@@ -8219,64 +8289,55 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 
   <style>
   /* =====================================================================
-     OUR SERVICES — split rows (colour panel + photo | navy text)
-     Text always sits on navy, so the heading and the 4 services read as
-     one piece. Colour lives only in the photo half.
+     OUR SERVICES — navy, built from the Blissify visual identity
+     Each service: a big number on top, two photos under it (the second one
+     sits a little lower), and the title + story beside them.
+     Behind the photos sit the identity shapes: the "smile" half-circle
+     under the number, a big flat circle, a red-to-yellow gradient dot and
+     a thin ring. The rows swap sides one after the other (svc__row--flip).
 
-     TO EDIT A ROW: --svc-panel on its <div class="svc__row"> = colour of the photo half.
-     TO EDIT A CIRCLE: on its <span class="svc__dot">
-       --c = colour, --o = opacity (1 = solid, .2 = very transparent)
-     Two circles per panel: a big transparent one and a smaller, stronger one.
-     Do not use navy for them: on the panel edge it looks like a bite (navy on navy).
+     TO RECOLOUR A ROW'S SHAPES: on its <div class="svc__brand">
+       --s-smile = colour of the half-circle under the number. Blissify colours only
+   (#FFC70A yellow / #EF4242 red), never white (the number is white), and never
+   the same colour on two services in a row
+     TO CHANGE A PHOTO: change the src of its <img> inside .svc__photo.
      ===================================================================== */
   .svc {
     --svc-navy: var(--brand-navy, #1b1851);
     --svc-yellow: var(--brand-yellow, #FFC70A);
     --svc-red: var(--brand-red, #EF4242);
+    position: relative;
     font-family: bb, sans-serif;
     color: #fff;
     background: var(--svc-navy);
     overflow: hidden;
+    isolation: isolate;
   }
-
-  /* ---------- one row per service: photo half + text half ---------- */
-  .svc__row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: "panel body";
-  }
-  .svc__row--flip { grid-template-areas: "body panel"; }
-  /* first row also carries the section heading, in the same navy column as service 01 */
-  .svc__row--first {
-    grid-template-areas:
-      "head panel"
-      "body panel";
-    grid-template-rows: auto 1fr;
-  }
-  .svc__head  { grid-area: head; }
-  .svc__panel { grid-area: panel; }
-  .svc__body  { grid-area: body; }
+  .svc *, .svc *::before, .svc *::after { box-sizing: border-box; }
 
   /* ---------- heading ---------- */
   .svc__head {
-    padding: clamp(56px, 7vw, 112px) clamp(24px, 7vw, 128px) 0;
-    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: clamp(72px, 8vw, 120px) 6% 0;
   }
   .svc__heading {
     margin: 0;
     font-family: bb, sans-serif;
-    font-size: clamp(2.2rem, 4.4vw, 3.6rem);
-    font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: 1px;
+    font-size: clamp(2.6rem, 5.6vw, 4.8rem);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: .5px;
     color: var(--svc-yellow);
   }
   .svc__heading span { color: #fff; }
   .svc .svc__sub {
-    margin: 10px 0 0;
+    margin: 12px 0 0;
     opacity: 1;
     font-family: bb, sans-serif;
-    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
     font-weight: 600;
     letter-spacing: .5px;
     text-align: inherit;
@@ -8284,115 +8345,222 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
   }
   .svc__sub span { color: var(--svc-yellow); }
 
-  /* ---------- photo half: flat colour + half-circle + photo ---------- */
-  .svc__panel {
+  /* ---------- one row per service ---------- */
+  .svc__row {
     position: relative;
+    scroll-margin-top: 80px;                 /* footer links land below the fixed nav */
     display: grid;
-    place-items: center;
-    padding: clamp(56px, 7.5vw, 120px) clamp(28px, 5vw, 80px);
-    box-sizing: border-box;
-    overflow: hidden;
-    background: var(--svc-panel);
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-areas: "gallery body";
+    align-items: center;
+    gap: clamp(32px, 5vw, 88px);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: clamp(48px, 6vw, 96px) 6%;
   }
-  /* two brand circles behind the photo, each with its own colour and opacity */
-  .svc__dots {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-  /* mirror the layout on every second row so the rows do not look copy-pasted */
-  .svc__row:not(.svc__row--flip) .svc__dots { transform: scaleX(-1); }
-  .svc__dot {
-    position: absolute;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    background: var(--c);
-    opacity: var(--o, 1);
-  }
-  .svc__dot--a { width: 44%; top: -12%;   right: -10%; }
-  .svc__dot--b { width: 24%; bottom: -7%; left: 5%; }
+  .svc__row--flip { grid-template-areas: "body gallery"; }
+  .svc__row:last-of-type { padding-bottom: clamp(72px, 9vw, 130px); }
+  .svc__gallery { grid-area: gallery; }
+  .svc__body    { grid-area: body; }
 
-  /* image frame (also the empty placeholder) */
-  .svc__media {
+  /* ---------- the number + two photos ---------- */
+  .svc__gallery {
     position: relative;
-    width: min(100%, 560px);
-    aspect-ratio: 4 / 3;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(14px, 2vw, 28px);
+    align-items: start;
+  }
+
+  /* identity shapes behind the photos */
+  .svc__brand { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+  .svc__row--flip .svc__brand { transform: scaleX(-1); }   /* mirror on the flipped rows */
+  .svc__shape { position: absolute; display: block; }
+  .svc__shape--circle {
+    width: 62%; aspect-ratio: 1 / 1;
+    right: -14%; top: 34%;
+    border-radius: 50%;
+    background: var(--s-circle, var(--svc-yellow));
+  }
+  .svc__shape--smile {                       /* the half-circle "smile" of the b */
+    width: 38%; aspect-ratio: 2 / 1;
+    left: 5%; top: 11%;
+    border-radius: 0 0 999px 999px;
+    background: var(--s-smile, var(--svc-red));
+  }
+  .svc__shape--dot {                         /* small flat circle: solid or see-through */
+    width: 22%; aspect-ratio: 1 / 1;
+    left: -9%; bottom: -5%;
+    border-radius: 50%;
+    background: var(--s-dot, var(--svc-red));
+    opacity: var(--s-dot-o, 1);
+  }
+  .svc__shape--ring {
+    width: 17%; aspect-ratio: 1 / 1;
+    right: 4%; top: 0;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, .35);
+  }
+
+  .svc__num {
+    grid-column: 1;
+    justify-self: center;
+    margin-bottom: clamp(18px, 3vw, 44px);
+    font-family: bb, sans-serif;
+    font-size: clamp(5rem, 10vw, 9rem);
+    font-weight: 700;
+    line-height: .9;
+    color: #fff;
+    text-shadow: 0 4px 18px rgba(27, 24, 81, .45);
+  }
+  .svc__row--flip .svc__num { grid-column: 2; }
+
+  .svc__photo {
+    position: relative;
+    grid-row: 2;
+    margin: 0;
+    aspect-ratio: 4 / 5;
     border-radius: 28px;
     overflow: hidden;
-    background: var(--svc-navy);
+    background: #2a2670;
+    box-shadow: 0 20px 44px rgba(0, 0, 0, .35);
   }
-  .svc__media::before {
+  .svc__photo--a { grid-column: 1; }
+  .svc__photo--b { grid-column: 2; margin-top: 22%; }   /* the second photo sits lower */
+  .svc__row--flip .svc__photo--a { margin-top: 22%; }
+  .svc__row--flip .svc__photo--b { margin-top: 0; }
+  .svc__photo::before {                                  /* shows only if the image is missing */
     content: "Image coming soon";
     position: absolute; inset: 0;
     display: grid; place-items: center;
     font-size: .9rem; letter-spacing: 1px;
-    color: #fff;
-    opacity: .7;
+    color: #fff; opacity: .7;
   }
-  .svc__media img {
+  .svc__photo img {
     position: relative;
     display: block;
     width: 100%; height: 100%;
     max-width: none;
     object-fit: cover;
-    object-position: center 20%;   /* keeps the face in frame while the photo is Amany's portrait */
+    object-position: center 20%;
     pointer-events: none;
   }
 
-  /* ---------- text half (always navy) ---------- */
-  .svc__body {
+  /* ---------- title + story ---------- */
+  .svc__title {
+    margin: 0;
+    font-family: bb, sans-serif;
+    font-size: clamp(1.9rem, 3.4vw, 3.1rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: .3px;
+    color: #fff;
+  }
+  .svc__title span { color: var(--svc-yellow); }
+
+  .svc .svc__story {
+    list-style: none;
+    margin: 26px 0 0;
+    padding: 0;
+    max-width: 36rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: clamp(40px, 6vw, 96px) clamp(24px, 7vw, 128px);
-    box-sizing: border-box;
+    gap: 20px;
   }
-  .svc__row--first .svc__body {
-    justify-content: flex-start;
-    padding-top: clamp(28px, 3.5vw, 56px);
+  .svc .svc__step { position: relative; margin: 0; padding: 0 0 0 30px; }
+  .svc .svc__step::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 7px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--svc-yellow);
+    background: var(--svc-navy);
   }
-  .svc__num {
-    display: block;
-    font-size: clamp(2.6rem, 4.6vw, 4rem);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -1px;
-    color: var(--svc-yellow);
+  .svc .svc__step:not(.svc__step--result)::after {
+    content: "";
+    position: absolute;
+    left: 5px; top: 26px; bottom: -16px;
+    width: 2px;
+    background: rgba(255, 255, 255, .22);
   }
-  .svc__title {
-    margin: 14px 0 0;
-    font-family: bb, sans-serif;
-    font-size: clamp(1.5rem, 2.6vw, 2.4rem);
-    font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: .5px;
-    color: #fff;
-  }
-  .svc .svc__tags {
-    margin: 12px 0 0;
+  .svc .svc__label {
+    margin: 0;
     opacity: 1;
-    font-size: .95rem;
-    font-weight: 600;
+    font-family: bb, sans-serif;
+    font-size: clamp(1.1rem, 1.45vw, 1.3rem);
+    font-weight: 700;
     letter-spacing: .5px;
+    line-height: 1.3;
     text-align: inherit;
-    color: var(--svc-yellow);
+    color: #fff;
   }
   .svc .svc__text {
-    margin: 16px 0 0;
+    margin: 6px 0 0;
+    opacity: 1;
+    font-size: clamp(1rem, 1.15vw, 1.08rem);
+    font-weight: 400;
+    line-height: 1.65;
+    text-align: inherit;
+    color: rgba(255, 255, 255, .8);
+  }
+  /* "What that gives you" = the payoff: yellow card */
+  .svc .svc__step--result {
+    padding: 18px 22px 20px;
+    border-radius: 20px;
+    background: var(--svc-yellow);
+  }
+  .svc .svc__step--result::before { display: none; }
+  .svc .svc__step--result .svc__label { color: var(--svc-navy); }
+  .svc .svc__step--result .svc__text { font-weight: 600; color: var(--svc-navy); }
+
+  .svc .svc__chips {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .svc .svc__chips li {
+    margin: 0;
+    padding: 5px 12px;
+    border: 1.5px solid rgba(255, 255, 255, .35);
+    border-radius: 999px;
+    font-size: .88rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #fff;
+  }
+  /* short version of each service: a one-line hook + one paragraph */
+  .svc .svc__tagline {
+    margin: 18px 0 0;
+    opacity: 1;
+    font-family: bb, sans-serif;
+    font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: .3px;
+    text-align: inherit;
+    color: var(--svc-yellow);
+  }
+  .svc .svc__lead {
+    margin: 14px 0 0;
     max-width: 34rem;
     opacity: 1;
-    font-size: clamp(1rem, 1.25vw, 1.15rem);
+    font-family: bb, sans-serif;
+    font-size: clamp(1.02rem, 1.25vw, 1.15rem);
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.7;
     text-align: inherit;
-    color: #fff;
+    color: rgba(255, 255, 255, .85);
   }
   /* button: jumps to the contact form and ticks this service there (data-talk-service) */
   .svc .svc__cta {
     display: inline-block;
     margin-top: 28px;
-    padding: 11px 26px;
+    padding: 12px 28px;
     border: 2px solid var(--svc-yellow);
     border-radius: 999px;
     background: var(--svc-yellow);
@@ -8402,200 +8570,128 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     line-height: 1.2;
     text-decoration: none;
     color: var(--svc-navy);
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
   }
-  .svc .svc__cta:hover { background: transparent; color: var(--svc-yellow); }
-  .svc .svc__cta:focus-visible {
-    outline: 3px solid #fff;
-    outline-offset: 4px;
-  }
+  .svc .svc__cta:hover { background: #fff; border-color: #fff; color: var(--svc-navy); }
+  .svc .svc__cta:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
 
-  /* ---------- Amany quote (closes the section) — unchanged ---------- */
-  .svc__ceo { background: var(--svc-navy); }
-  .svc__ceo-inner {
-    display: grid;
-    grid-template-columns: minmax(220px, 340px) 1px 1fr;
-    align-items: center;
-    gap: clamp(28px, 5vw, 72px);
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: clamp(56px, 9vw, 120px) 5%;
-    box-sizing: border-box;
-  }
-  .svc__ceo-photo {
-    display: block;
-    width: 100%; height: auto;
-    border-radius: 40px;
-    pointer-events: none;
-  }
-  .svc__ceo-line { align-self: stretch; background: var(--svc-yellow); }
-  .svc__ceo-fig { margin: 0; }
-  .svc__ceo-mark {
-    display: block;
-    font-size: 4.5rem;
-    line-height: .6;
-    color: var(--svc-yellow);
-  }
-  .svc blockquote.svc__quote {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-family: bb, sans-serif;
-    font-size: clamp(1.15rem, 2vw, 1.6rem);
-    font-style: italic;
-    line-height: 1.5;
-    color: #fff;
-  }
-  .svc__sign {
-    display: block;
-    width: 150px; height: auto;
-    margin-top: 18px;
-    pointer-events: none;
-  }
-  .svc .svc__who {
-    margin: 10px 0 0;
-    text-align: inherit;
-    opacity: 1;
-    font-size: .85rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--svc-yellow);
-  }
-
-  /* ---------- mobile: heading, then photo on top of its text ---------- */
-  @media (max-width: 767px) {
+  /* ---------- tablet: number + photos on top, the text under them ---------- */
+  @media (max-width: 991px) {
     .svc__row,
     .svc__row--flip {
       grid-template-columns: 1fr;
-      grid-template-areas: "panel" "body";
+      grid-template-areas: "gallery" "body";
+      gap: 44px;
     }
-    .svc__row--first {
-      grid-template-areas: "head" "panel" "body";
-      grid-template-rows: auto;
-    }
-    .svc__head { padding: 56px 6% 32px; }
-    .svc__panel { padding: 64px 6%; }
-    .svc__media { border-radius: 20px; }
-    .svc__body,
-    .svc__row--first .svc__body { padding: 32px 6% 56px; }
-
-    .svc__ceo-inner { grid-template-columns: 1fr; padding: 56px 6%; text-align: center; }
-    .svc__ceo-photo { width: min(70%, 280px); margin: 0 auto; border-radius: 32px; }
-    .svc__ceo-line { display: none; }
-    .svc__sign { margin-left: auto; margin-right: auto; }
+    .svc__gallery { width: min(100%, 620px); margin: 0 auto; }
+    .svc__body { max-width: 620px; margin: 0 auto; width: 100%; }
+  }
+  /* ---------- phone ---------- */
+  @media (max-width: 767px) {
+    .svc__head { padding: 64px 6% 0; }
+    .svc__row { padding: 44px 6%; }
+    .svc__photo { border-radius: 20px; }
+    .svc__shape--circle { right: -8%; }
+    .svc__shape--dot { left: -4%; }
   }
 </style>
 
 <section class="svc" aria-labelledby="svc-title">
 
-  <!-- 01 — this first row also holds the "Our Services" heading -->
-  <div class="svc__row svc__row--first svc__row--flip" style="--svc-panel:#FFC70A;">
-    <div class="svc__head">
-      <h2 id="svc-title" class="svc__heading"><span>Our</span> Services</h2>
-      <p class="svc__sub"><img src="assets/logos/Main.png" alt="Blissify" style="display:inline-block;height:1em;width:auto;vertical-align:-0.12em;filter:brightness(100);"> <span>HR</span> Consultancy</p>
-    </div>
-    <div class="svc__panel">
-      <div class="svc__dots" aria-hidden="true">
-        <span class="svc__dot svc__dot--a" style="--c:#FFFFFF; --o:0.45;"></span>
-        <span class="svc__dot svc__dot--b" style="--c:#EF4242; --o:0.9;"></span>
-      </div>
-      <div class="svc__media">
-        <img src="assets/images/amany1.webp" alt="Employee engagement programs" loading="eager"
-          onerror="this.onerror=null;this.dataset.failedSrc=this.currentSrc||this.src;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27640%27%20height%3D%27480%27%20viewBox%3D%270%200%20640%20480%27%3E%3Crect%20width%3D%27640%27%20height%3D%27480%27%20fill%3D%27%231b1851%27%2F%3E%3Ctext%20x%3D%27320%27%20y%3D%27240%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffc70a%27%20font-family%3D%27sans-serif%27%20font-size%3D%2724%27%3EImage%20unavailable%3C%2Ftext%3E%3C%2Fsvg%3E'">
-      </div>
-    </div>
-    <div class="svc__body">
-      <span class="svc__num">01</span>
-      <h3 class="svc__title">Our Employee Engagement Programs</h3>
-      <p class="svc__tags">Programs · Surveys · Retention</p>
-      <p class="svc__text">We offer a variety of programs designed to enhance employee satisfaction, motivation, and
-        retention along with customized engagement surveys.</p>
-      <a class="svc__cta" href="#contactus" data-talk-service="Employee Engagement">Engage Your Team</a>
-    </div>
-  </div>
+  <header class="svc__head">
+    <h2 id="svc-title" class="svc__heading"><span>Our</span> Services</h2>
+    <p class="svc__sub">Blissify <span>HR</span> Consultancy</p>
+  </header>
 
-  <!-- 02 -->
-  <div class="svc__row" style="--svc-panel:#EF4242;">
-    <div class="svc__panel">
-      <div class="svc__dots" aria-hidden="true">
-        <span class="svc__dot svc__dot--a" style="--c:#FFFFFF; --o:0.18;"></span>
-        <span class="svc__dot svc__dot--b" style="--c:#FFC70A; --o:1;"></span>
+  <!-- 01 -->
+  <article id="service-engagement" class="svc__row">
+    <div class="svc__gallery">
+      <div class="svc__brand" aria-hidden="true" style="--s-smile:#FFC70A;">
+        <span class="svc__shape svc__shape--smile"></span>
       </div>
-      <div class="svc__media">
-        <img src="assets/images/amany1.webp" alt="HR consultation and CHRO as a service" loading="eager"
-          onerror="this.onerror=null;this.dataset.failedSrc=this.currentSrc||this.src;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27640%27%20height%3D%27480%27%20viewBox%3D%270%200%20640%20480%27%3E%3Crect%20width%3D%27640%27%20height%3D%27480%27%20fill%3D%27%231b1851%27%2F%3E%3Ctext%20x%3D%27320%27%20y%3D%27240%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffc70a%27%20font-family%3D%27sans-serif%27%20font-size%3D%2724%27%3EImage%20unavailable%3C%2Ftext%3E%3C%2Fsvg%3E'">
-      </div>
-    </div>
-    <div class="svc__body">
-      <span class="svc__num">02</span>
-      <h3 class="svc__title">HR Consultation &amp; CHRO as a Service</h3>
-      <p class="svc__tags">Consultation · CHRO · Performance</p>
-      <p class="svc__text">Expert HR guidance tailored to your needs, including on-demand CHRO leadership to elevate
-        your HR strategy, and to plan and implement Performance Management.</p>
-      <a class="svc__cta" href="#contactus" data-talk-service="HR Consulting">Elevate Your HR</a>
-    </div>
-  </div>
-
-  <!-- 03 -->
-  <div class="svc__row svc__row--flip" style="--svc-panel:#FFFFFF;">
-    <div class="svc__panel">
-      <div class="svc__dots" aria-hidden="true">
-        <span class="svc__dot svc__dot--a" style="--c:#FFC70A; --o:0.55;"></span>
-        <span class="svc__dot svc__dot--b" style="--c:#EF4242; --o:0.9;"></span>
-      </div>
-      <div class="svc__media">
-        <img src="assets/images/amany1.webp" alt="Training and game-based learning" loading="eager"
-          onerror="this.onerror=null;this.dataset.failedSrc=this.currentSrc||this.src;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27640%27%20height%3D%27480%27%20viewBox%3D%270%200%20640%20480%27%3E%3Crect%20width%3D%27640%27%20height%3D%27480%27%20fill%3D%27%231b1851%27%2F%3E%3Ctext%20x%3D%27320%27%20y%3D%27240%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffc70a%27%20font-family%3D%27sans-serif%27%20font-size%3D%2724%27%3EImage%20unavailable%3C%2Ftext%3E%3C%2Fsvg%3E'">
-      </div>
-    </div>
-    <div class="svc__body">
-      <span class="svc__num">03</span>
-      <h3 class="svc__title">Training &amp; Game-Based Learning</h3>
-      <p class="svc__tags">Workshops · Leadership · Simulations</p>
-      <p class="svc__text">Interactive workshops that develop leadership skills and strengthen workplace culture
-        through engaging real-world simulations.</p>
-      <a class="svc__cta" href="#contactus" data-talk-service="Training">Train in the Fun Way</a>
-    </div>
-  </div>
-
-  <!-- 04 -->
-  <div class="svc__row" style="--svc-panel:#FFC70A;">
-    <div class="svc__panel">
-      <div class="svc__dots" aria-hidden="true">
-        <span class="svc__dot svc__dot--a" style="--c:#EF4242; --o:0.3;"></span>
-        <span class="svc__dot svc__dot--b" style="--c:#FFFFFF; --o:0.8;"></span>
-      </div>
-      <div class="svc__media">
-        <img src="assets/images/amany1.webp" alt="Vibrant recruitment process" loading="eager"
-          onerror="this.onerror=null;this.dataset.failedSrc=this.currentSrc||this.src;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27640%27%20height%3D%27480%27%20viewBox%3D%270%200%20640%20480%27%3E%3Crect%20width%3D%27640%27%20height%3D%27480%27%20fill%3D%27%231b1851%27%2F%3E%3Ctext%20x%3D%27320%27%20y%3D%27240%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffc70a%27%20font-family%3D%27sans-serif%27%20font-size%3D%2724%27%3EImage%20unavailable%3C%2Ftext%3E%3C%2Fsvg%3E'">
-      </div>
-    </div>
-    <div class="svc__body">
-      <span class="svc__num">04</span>
-      <h3 class="svc__title">Vibrant Recruitment Process</h3>
-      <p class="svc__tags">Recruitment · Candidate experience · Talent</p>
-      <p class="svc__text">Attract and retain top talent with a recruitment process that focuses on creating an
-        inclusive and engaging candidate experience.</p>
-      <a class="svc__cta" href="#contactus" data-talk-service="Recruitment">Find Your Top Talent</a>
-    </div>
-  </div>
-
-  <!-- Amany + quote: closes the section -->
-  <div class="svc__ceo">
-    <div class="svc__ceo-inner">
-      <img class="svc__ceo-photo" src="assets/images/amany1.webp" alt="Amany Helmy">
-      <div class="svc__ceo-line" aria-hidden="true"></div>
-      <figure class="svc__ceo-fig">
-        <span class="svc__ceo-mark" aria-hidden="true">&ldquo;</span>
-        <blockquote class="svc__quote">Ideal workplace starts with a little fun &amp; a lot of connections. Where fun meets
-          purpose, the workplace turns into a game. And I believe we are the game masters.</blockquote>
-        <img class="svc__sign" src="assets/images/sign1.png" alt="Amany's signature">
-        <figcaption class="svc__who">Amany Helmy · CEO &amp; Co-Founder</figcaption>
+      <span class="svc__num" aria-hidden="true">1</span>
+      <figure class="svc__photo svc__photo--a">
+        <img src="assets/selected-photos/engagement-01.webp" alt="Blissify engagement activity" loading="eager" width="1600" height="900" style="object-fit:cover;object-position:center;">
+      </figure>
+      <figure class="svc__photo svc__photo--b">
+        <img src="assets/selected-photos/engagement-02.webp" alt="Blissify engagement activity" loading="eager" width="1000" height="1250" style="object-position:center;">
       </figure>
     </div>
-  </div>
+    <div class="svc__body">
+      <h3 class="svc__title"><span>Employee</span> Engagement Programs</h3>
+      <p class="svc__tagline">More Than Just a Fun Day.</p>
+      <p class="svc__lead">We turn one-off activities into meaningful employee experiences through team building, recognition, and interactive programs that help people connect and feel part of the team.</p>
+      <a class="svc__cta" href="#contactus" data-talk-service="Employee Engagement">Engage Your Team</a>
+    </div>
+  </article>
 
-</section> 
+  <!-- 02 -->
+  <article id="service-hr" class="svc__row svc__row--flip">
+    <div class="svc__gallery">
+      <div class="svc__brand" aria-hidden="true" style="--s-smile:#EF4242;">
+        <span class="svc__shape svc__shape--smile"></span>
+      </div>
+      <span class="svc__num" aria-hidden="true">2</span>
+      <figure class="svc__photo svc__photo--a">
+        <img src="assets/selected-photos/hr-01.webp" alt="Blissify hr activity" loading="eager" width="1600" height="900" style="object-fit:cover;object-position:center;">
+      </figure>
+      <figure class="svc__photo svc__photo--b">
+        <img src="assets/selected-photos/hr-02.webp" alt="Blissify hr activity" loading="eager" width="1600" height="900" style="object-fit:cover;object-position:center;">
+      </figure>
+    </div>
+    <div class="svc__body">
+      <h3 class="svc__title"><span>HR</span> Consultation &amp; CHRO as a Service</h3>
+      <p class="svc__tagline">Less Firefighting. More Structure.</p>
+      <p class="svc__lead">From company policies and job descriptions to performance management and talent planning, we build HR systems that work together and grow with your business.</p>
+      <a class="svc__cta" href="#contactus" data-talk-service="HR Consulting">Elevate Your HR</a>
+    </div>
+  </article>
+
+  <!-- 03 -->
+  <article id="service-training" class="svc__row">
+    <div class="svc__gallery">
+      <div class="svc__brand" aria-hidden="true" style="--s-smile:#FFC70A;">
+        <span class="svc__shape svc__shape--smile"></span>
+      </div>
+      <span class="svc__num" aria-hidden="true">3</span>
+      <figure class="svc__photo svc__photo--a">
+        <img src="assets/selected-photos/training-01.webp" alt="Blissify training activity" loading="eager" width="1000" height="1250" style="object-position:center;">
+      </figure>
+      <figure class="svc__photo svc__photo--b">
+        <img src="assets/selected-photos/training-02.webp" alt="Blissify training activity" loading="eager" width="1000" height="1250" style="object-position:center;">
+      </figure>
+    </div>
+    <div class="svc__body">
+      <h3 class="svc__title"><span>Training</span> &amp; Game-Based Learning</h3>
+      <p class="svc__tagline">Less Listening. More Doing.</p>
+      <p class="svc__lead">We make learning practical through simulations, challenges, and game-based workshops where employees practice real skills instead of just hearing about them.</p>
+      <a class="svc__cta" href="#contactus" data-talk-service="Training">Train in the Fun Way</a>
+    </div>
+  </article>
+
+  <!-- 04 -->
+  <article id="service-recruitment" class="svc__row svc__row--flip">
+    <div class="svc__gallery">
+      <div class="svc__brand" aria-hidden="true" style="--s-smile:#EF4242;">
+        <span class="svc__shape svc__shape--smile"></span>
+      </div>
+      <span class="svc__num" aria-hidden="true">4</span>
+      <figure class="svc__photo svc__photo--a">
+        <img src="assets/selected-photos/recruitment-01.webp" alt="Blissify recruitment activity" loading="eager" width="1000" height="1250" style="object-position:center;">
+      </figure>
+      <figure class="svc__photo svc__photo--b">
+        <img src="assets/selected-photos/recruitment-02.webp" alt="Blissify recruitment activity" loading="eager" width="1000" height="1250" style="object-position:center;">
+      </figure>
+    </div>
+    <div class="svc__body">
+      <h3 class="svc__title"><span>Vibrant</span> Recruitment Process</h3>
+      <p class="svc__tagline">The Right Hire Goes Beyond the CV.</p>
+      <p class="svc__lead">We look beyond qualifications to understand the skills, competencies, and values each role needs, creating a more engaging recruitment experience and helping companies make better hiring decisions.</p>
+      <a class="svc__cta" href="#contactus" data-talk-service="Recruitment">Find Your Top Talent</a>
+    </div>
+  </article>
+
+</section>
 
 
 
@@ -8742,7 +8838,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
           </div>
         </div>
         <div class="parallax_overlay"></div>
-        <img sizes="100vw" alt="" src="assets/images/improve.webp" loading="eager" class="parallax_content" />
+        <img class="parallax_content"  src="assets/selected-photos/stats-team.webp" alt="Participants at a Blissify team activity" loading="eager" width="2200" height="1238"/>
       </section>
 
       <style>
@@ -8807,226 +8903,155 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
      Self-contained: CSS is included here, scoped with the .acad- prefix.
      ===================================================================== -->
 <style>
-  .acad {
-    --acad-navy: var(--brand-navy, #1b1851);
-    --acad-yellow: var(--brand-yellow, #FFC70A);
-    --acad-red: var(--brand-red, #EF4242);
-    --acad-card: #25216a;
-    position: relative;
-    overflow: hidden;
-    background: var(--acad-navy);
-    color: #fff;
-    padding: 110px 24px 120px;
-    isolation: isolate;
-  }
-
-  /* brand shapes in the background (circles / half-circle from the identity) */
-  .acad::before,
-  .acad::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    pointer-events: none;
-  }
-  .acad::before {
-    width: 520px; height: 520px; border-radius: 50%;
-    background: var(--acad-red);
-    opacity: .16;
-    top: -260px; left: -180px;
-  }
-  .acad::after {
-    width: 560px; height: 280px;
-    border-radius: 0 0 560px 560px;
-    background: var(--acad-yellow);
-    opacity: .12;
-    right: -140px; bottom: -10px;
-  }
-
-  .acad__head { max-width: 760px; margin: 0 auto 56px; text-align: center; }
-  .acad__tagline {
-  font-family: bb, sans-serif;
-  font-size: 2.5rem; font-weight: 600; line-height: 1.2; letter-spacing: 1px;
-  color: var(--acad-yellow);
-  margin: 0 0 22px;
+.acad {
+  --acad-navy:#1b1851; --acad-yellow:#FFC70A; --acad-gold:#F6BA00; --acad-red:#EF4242;
+  --acad-gutter:160px; --acad-cube:112px;
+  position:relative; padding:100px 24px 80px; background:#fff; color:var(--acad-navy); isolation:isolate;
 }
-.acad__tagline span { color: #fff; }
-  .acad__title {
-    font-family: bb, sans-serif;
-    font-size: clamp(36px, 5.2vw, 68px);
-    line-height: 1.05; letter-spacing: 1px; margin: 0 0 18px;
-  }
-  .acad__title span { color: var(--acad-yellow); }
-  .acad__lead { font-size: clamp(16px, 1.6vw, 20px); line-height: 1.6; color: rgba(255,255,255,.82); margin: 0; }
+.acad *, .acad *::before, .acad *::after { box-sizing:border-box; }
+.acad::before,.acad::after { content:""; position:absolute; pointer-events:none; z-index:-1; border-radius:50%; opacity:.18; }
+.acad::before { width:240px; height:240px; right:2%; top:150px; background:var(--acad-red); }
+.acad::after { width:320px; height:320px; left:-130px; bottom:15%; background:var(--acad-yellow); }
+.acad__head { max-width:800px; margin:0 auto 64px; text-align:center; }
+.acad__tagline { margin:0 0 20px; font-family:bb,sans-serif; font-size:clamp(24px,3vw,40px); line-height:1.2; color:var(--acad-gold); }
+.acad__tagline span { color:var(--acad-navy); }
+.acad__title { margin:0 0 18px; font-family:bb,sans-serif; font-size:clamp(30px,5vw,64px); line-height:1.1; color:var(--acad-navy); }
+.acad__title span { color:var(--acad-gold); }
+.acad .acad__lead { margin:0; font-size:clamp(15px,1.5vw,19px); line-height:1.6; color:var(--acad-navy); opacity:.8; }
+.acad__journey { position:relative; max-width:1180px; margin:0 auto; }
+.acad__steps { position:relative; z-index:1; }
+.acad__step { display:grid; grid-template-columns:minmax(0,1fr) var(--acad-gutter) minmax(0,1fr); align-items:center; min-height:340px; padding:20px 0; }
+.acad__course { position:relative; grid-row:1; width:100%; min-width:0; padding:26px 28px; border-radius:24px; background:var(--acad-gold); box-shadow:0 14px 32px rgba(27,24,81,.14); }
+.acad__step:nth-child(odd) .acad__course { grid-column:3; }
+.acad__step:nth-child(even) .acad__course { grid-column:1; }
+.acad__course::before { content:""; position:absolute; top:50%; width:calc(var(--acad-gutter)/2); height:1px; border-top:1px dashed rgba(27,24,81,.3); }
+.acad__step:nth-child(odd) .acad__course::before { right:100%; }
+.acad__step:nth-child(even) .acad__course::before { left:100%; }
+.acad__num { display:inline-grid; place-items:center; width:32px; height:32px; margin-bottom:12px; border-radius:50%; background:var(--acad-navy); color:var(--acad-yellow); font-family:bb,sans-serif; }
+.acad__course h3 { margin:0 0 12px; font-family:bb,sans-serif; font-size:clamp(23px,2.4vw,32px); line-height:1.12; color:var(--acad-navy); }
+.acad .acad__course p { margin:0; font-size:15px; line-height:1.6; color:var(--acad-navy); opacity:1; overflow-wrap:anywhere; }
+.acad__node { position:relative; z-index:1; grid-column:2; grid-row:1; justify-self:center; width:16px; height:16px; border:3px solid var(--acad-gold); border-radius:50%; background:#fff; box-shadow:0 0 0 6px #fff; }
+.acad__rail { position:absolute; left:50%; top:var(--acad-rail-top,160px); bottom:110px; width:2px; transform:translateX(-50%); background:rgba(27,24,81,.14); pointer-events:none; }
+.acad__rail-fill { position:absolute; inset:0; background:var(--acad-gold); transform:scaleY(var(--academy-progress,0)); transform-origin:top; }
+.acad__traveller { position:absolute; z-index:3; top:0; left:50%; width:var(--acad-cube); height:var(--acad-cube); transform:translate3d(-50%,100px,0); perspective:650px; pointer-events:none; will-change:transform; }
+.acad__cube-img { display:block; width:100%; height:100%; object-fit:contain; transform-style:preserve-3d; filter:drop-shadow(0 10px 12px rgba(27,24,81,.14)); }
+.acad__book { display:inline-flex; justify-content:center; align-items:center; min-height:44px; padding:11px 23px; border:2px solid var(--acad-navy); border-radius:999px; font-family:bb,sans-serif; font-size:17px; line-height:1.2; text-decoration:none; }
+.acad__course-book { margin-top:20px; background:var(--acad-navy); color:var(--acad-yellow); }
+.acad__course-book:hover { background:#fff; color:var(--acad-navy); }
+.acad__book:focus-visible { outline:3px solid var(--acad-navy); outline-offset:5px; }
+.acad__finish { position:relative; z-index:2; min-height:230px; padding-top:145px; text-align:center; }
+.acad__final-book { background:var(--acad-yellow); border-color:var(--acad-yellow); color:var(--acad-navy); }
+.acad__final-book:hover { background:var(--acad-navy); border-color:var(--acad-navy); color:var(--acad-yellow); }
+.acad .acad__hint { margin:14px auto 0; max-width:440px; font-size:15px; line-height:1.5; color:var(--acad-navy); opacity:.7; }
+.acad--scroll-ready .acad__final-book { opacity:0; visibility:hidden; pointer-events:none; transform:translateY(8px); transition:opacity .2s,transform .2s; }
+.acad--scroll-ready.acad--at-end .acad__final-book { opacity:1; visibility:visible; pointer-events:auto; transform:none; }
+@media(max-width:991px) {
+  .acad { --acad-gutter:110px; --acad-cube:84px; padding:80px 20px 64px; }
+  .acad__course { padding:22px; }
+}
+@media(max-width:600px) {
+  .acad { --acad-gutter:64px; --acad-cube:54px; padding:64px 12px 48px; }
+  .acad__head { margin-bottom:32px; }
+  .acad__title { font-size:30px; }
+  .acad__step { min-height:0; padding:22px 0; }
+  .acad__course { padding:15px 12px; border-radius:17px; }
+  .acad__course h3 { font-size:19px; line-height:1.15; }
+  .acad .acad__course p { font-size:12px; line-height:1.55; }
+  .acad__num { width:25px; height:25px; font-size:13px; margin-bottom:10px; }
+  .acad__node { width:12px; height:12px; border-width:2px; box-shadow:0 0 0 4px #fff; }
+  .acad__course-book { width:100%; min-height:38px; padding:9px 5px; margin-top:15px; font-size:13px; }
+  .acad__finish { min-height:210px; padding-top:115px; }
+  .acad .acad__hint { font-size:13px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .acad__cube-img { transform:none!important; }
+  .acad--scroll-ready .acad__final-book { transition:none; }
+}
 
-  /* ---------- hub (desktop) ---------- */
-  .acad__stage {
-    position: relative;
-    max-width: 1180px;
-    margin: 0 auto;
-    aspect-ratio: 1100 / 900;
-  }
-  .acad__lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
-  .acad__lines line {
-    stroke: var(--acad-yellow); stroke-opacity: .55; stroke-width: 2;
-    stroke-dasharray: 3 9; stroke-linecap: round;
-    vector-effect: non-scaling-stroke;
-    animation: acadFlow 1.6s linear infinite;
-  }
-  @keyframes acadFlow { to { stroke-dashoffset: -24; } }
 
-  .acad__hub {
-    position: absolute; left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2; width: 300px;
-    display: flex; flex-direction: column; align-items: center; text-align: center;
-    background: var(--acad-navy);
-    border-radius: 40px; padding: 8px 12px 6px;
-  }
-  .acad__logo {
-    width: 150px; height: 150px; object-fit: contain; display: block;
-    filter: drop-shadow(0 10px 30px rgba(255, 199, 10, .25));
-  }
-  .acad__book {
-    display: inline-flex; align-items: center; gap: 10px;
-    margin-top: 12px; padding: 8px 23px;
-    font-family: bb, sans-serif; font-size: 18px; text-decoration: none;
-    color: var(--acad-navy); background: var(--acad-yellow);
-    border-radius: 999px; border: 2px solid var(--acad-yellow);
-    transition: transform .2s ease, background .2s ease, color .2s ease;
-  }
-  .acad__book:hover, .acad__book:focus-visible { transform: translateY(-3px) scale(1.04); background: #fff; border-color: #fff; }
-  .acad__book:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
-  .acad__hint { margin: 14px 0 0; font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.8); }
-  .acad__hint a { color: var(--acad-yellow); font-weight: 700; text-underline-offset: 3px; }
-  .acad__hint a:hover { color: #fff; }
-
-  /* ---------- cards ---------- */
-  .acad__card {
-    position: absolute; z-index: 1;
-    width: 27%;
-    transform: translate(-50%, -50%);
-  }
-  .acad__card-inner {
-    background: var(--acad-card);
-    border: 1px solid rgba(255, 199, 10, .35);
-    border-radius: 26px; padding: 22px 24px 24px;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
-    animation: acadFloat 6s ease-in-out infinite;
-  }
-  .acad__card:nth-of-type(2n) .acad__card-inner { animation-delay: -2s; }
-  .acad__card:nth-of-type(3n) .acad__card-inner { animation-delay: -4s; }
-  @keyframes acadFloat { 0%,100% { transform: translateY(-6px); } 50% { transform: translateY(6px); } }
-
-  .acad__num {
-    display: inline-grid; place-items: center;
-    width: 34px; height: 34px; border-radius: 50%;
-    font-family: bb, sans-serif; font-size: 15px;
-    background: var(--acad-yellow); color: var(--acad-navy); margin-bottom: 12px;
-  }
-  .acad__card h3 {
-    font-family: bb, sans-serif; font-size: clamp(19px, 2vw, 26px);
-    line-height: 1.15; margin: 0 0 8px; color: var(--acad-yellow); letter-spacing: .5px;
-  }
-  .acad__card p { margin: 0; font-size: 14.5px; line-height: 1.55; color: rgba(255,255,255,.86); }
-
-  /* card positions (percent of the stage) */
-  .acad__card--1 { left: 50%; top: 11%; }   /* top        */
-  .acad__card--2 { left: 87%; top: 38%; }   /* upper right*/
-  .acad__card--3 { left: 74%; top: 86%; }   /* lower right*/
-  .acad__card--4 { left: 26%; top: 86%; }   /* lower left */
-  .acad__card--5 { left: 13%; top: 38%; }   /* upper left */
-
-  /* ---------- tablet / mobile: stacked ---------- */
-  @media (max-width: 991px) {
-    .acad { padding: 80px 20px 90px; }
-    .acad::after { width: 300px; height: 150px; border-radius: 0 0 300px 300px; right: -80px; bottom: 0; }
-    .acad__stage { aspect-ratio: auto; display: flex; flex-direction: column; align-items: center; gap: 18px; }
-    .acad__lines { display: none; }
-    .acad__hub { position: static; transform: none; order: -1; width: 100%; margin-bottom: 10px; }
-    .acad__logo { width: 120px; height: 120px; }
-    .acad__card { position: relative; left: auto !important; top: auto !important; transform: none; width: 100%; max-width: 560px; }
-    .acad__card:not(:last-of-type)::after {
-      content: ""; display: block; height: 18px; margin: 0 auto; width: 2px;
-      background: repeating-linear-gradient(to bottom, var(--acad-yellow) 0 4px, transparent 4px 9px);
-      opacity: .6;
-    }
-    /* CTA repeats under the cards so it's reachable after reading */
-    .acad__book { font-size: 17px; padding: 10px 28px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .acad__card-inner, .acad__lines line { animation: none; }
-  }
+/* Phones: full-width course cards on the left, scroll rail on the right. */
+@media(max-width:767px) {
+  .acad { --acad-gutter:60px; --acad-cube:52px; padding:64px 12px 48px; }
+  .acad .acad__step { grid-template-columns:minmax(0,1fr) var(--acad-gutter); min-height:0; padding:12px 0; }
+  .acad .acad__step:nth-child(odd) .acad__course,
+  .acad .acad__step:nth-child(even) .acad__course { grid-column:1; padding:20px 18px; border-radius:18px; }
+  .acad .acad__step .acad__course::before { left:100%; right:auto; width:calc(var(--acad-gutter)/2); }
+  .acad .acad__node { grid-column:2; }
+  .acad .acad__rail,
+  .acad .acad__traveller { left:calc(100% - var(--acad-gutter)/2); }
+  .acad .acad__course h3 { font-size:24px; line-height:1.15; }
+  .acad .acad__course p { font-size:14px; line-height:1.55; }
+  .acad .acad__course-book { width:auto; min-height:40px; margin-top:16px; padding:10px 20px; font-size:15px; }
+  .acad .acad__num { width:28px; height:28px; font-size:14px; }
+}
 </style>
-
 <section class="acad" id="academy" aria-labelledby="acad-title">
-  <header class="acad__head">
+<header class="acad__head">
     <div class="acad__tagline"><span>Our </span>Academy</div>
-    <h2 class="acad__title" id="acad-title"><img src="assets/logos/Main.png" alt="Blissify" style="display:inline-block;height:1em;width:auto;vertical-align:-0.12em;filter:brightness(100);"><span> HR</span> Academy</h2>
+    <h2 class="acad__title" id="acad-title"><img src="assets/logos/Main.png" alt="Blissify" style="display:inline-block;height:1em;width:auto;vertical-align:-0.12em;"><span> HR</span> Academy</h2>
     <p class="acad__lead">Five programs that take you from HR fundamentals to AI, analytics and strategy. Pick your path and grow with us.</p>
   </header>
 
-  <div class="acad__stage">
-    <!-- connector lines: from the hub centre to each card centre (viewBox matches stage ratio) -->
-    <svg class="acad__lines" viewBox="0 0 1100 900" preserveAspectRatio="none" aria-hidden="true">
-      <line x1="550" y1="450" x2="550" y2="99" />
-      <line x1="550" y1="450" x2="957" y2="342" />
-      <line x1="550" y1="450" x2="814" y2="774" />
-      <line x1="550" y1="450" x2="286" y2="774" />
-      <line x1="550" y1="450" x2="143" y2="342" />
-    </svg>
+  
+<div class="acad__journey"><div class="acad__rail" aria-hidden="true"><div class="acad__rail-fill"></div></div><div class="acad__steps">
+<div class="acad__step"><article class="acad__course" aria-labelledby="acad-course-1"><span class="acad__num">1</span><h3 id="acad-course-1">HR Journey</h3><p>Get the full picture of HR, from recruitment and onboarding to engagement, rewards, employee relations and development.</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="HR Journey" aria-label="Book HR Journey">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
+<div class="acad__step"><article class="acad__course" aria-labelledby="acad-course-2"><span class="acad__num">2</span><h3 id="acad-course-2">Advanced HR Journey</h3><p>Made for HR professionals who want to go beyond daily tasks and start using data, business thinking and stronger HR systems to make better decisions.</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="Advanced HR Journey" aria-label="Book Advanced HR Journey">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
+<div class="acad__step"><article class="acad__course" aria-labelledby="acad-course-3"><span class="acad__num">3</span><h3 id="acad-course-3">AI Journey</h3><p>See how AI can actually fit into your HR work, helping you save time, analyze information, automate repetitive tasks and work smarter. Blissify_HR_Academy_Courses_2026</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="AI Journey" aria-label="Book AI Journey">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
+<div class="acad__step"><article class="acad__course" aria-labelledby="acad-course-4"><span class="acad__num">4</span><h3 id="acad-course-4">Strategic HR Budgeting</h3><p>Understand where the HR budget goes, forecast what the business will need and learn how to justify HR spending with numbers and ROI.</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="Strategic HR Budgeting" aria-label="Book Strategic HR Budgeting">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
+<div class="acad__step"><article class="acad__course" aria-labelledby="acad-course-5"><span class="acad__num">5</span><h3 id="acad-course-5">HR Analytics</h3><p>Make sense of your HR data. Choose the right metrics, build dashboards, spot useful patterns and present insights clearly to management.</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="HR Analytics" aria-label="Book HR Analytics">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
+</div><div class="acad__traveller" aria-hidden="true"><img class="acad__logo acad__cube-img" src="assets/logos/blissify%20model%20icon%20only(1).png" alt="" width="150" height="150" loading="eager"></div><div class="acad__finish"><a class="acad__book acad__final-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener">Book Now</a><p class="acad__hint">Want the full details and to join a course?</p></div></div></section>
+<script>
+(function () {
+  'use strict';
+  const section = document.getElementById('academy');
+  if (!section || section.dataset.timelineReady) return;
+  const journey = section.querySelector('.acad__journey');
+  const first = section.querySelector('.acad__step');
+  const finish = section.querySelector('.acad__finish');
+  const marker = section.querySelector('.acad__traveller');
+  const cube = section.querySelector('.acad__cube-img');
+  const rail = section.querySelector('.acad__rail');
+  if (!journey || !first || !finish || !marker || !cube || !rail) return;
+  section.dataset.timelineReady = 'true';
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let frame = 0, active = true;
+  function render() {
+    frame = 0;
+    const rect = journey.getBoundingClientRect();
+    const size = marker.offsetHeight;
+    const firstRect = first.getBoundingClientRect();
+    const start = firstRect.top - rect.top + firstRect.height / 2;
+    const end = finish.getBoundingClientRect().top - rect.top + size / 2 + 16;
+    const distance = Math.max(1, end - start);
+    const anchor = Math.min(innerHeight * .46, innerHeight - size - 100);
+    const progress = Math.max(0, Math.min(1, (anchor - rect.top - start) / distance));
+    const y = start + progress * distance - size / 2;
+    marker.style.transform = 'translate3d(-50%,' + y.toFixed(2) + 'px,0)';
+    cube.style.transform = 'none';
+    rail.style.top = start.toFixed(2) + 'px';
+    rail.style.height = distance.toFixed(2) + 'px';
+    rail.style.bottom = 'auto';
+    section.style.setProperty('--academy-progress', progress.toFixed(5));
+    section.classList.add('acad--scroll-ready');
+    section.classList.toggle('acad--at-end', reduced.matches || progress >= .985);
+  }
+  function schedule() { if (!frame) frame = requestAnimationFrame(render); }
+  addEventListener('scroll', function () { if (active) schedule(); }, { passive:true });
+  addEventListener('resize', schedule, { passive:true });
+  if (reduced.addEventListener) reduced.addEventListener('change', schedule);
+  if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(journey);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      active = entries[0].isIntersecting;
+      if (active) schedule();
+    }, { rootMargin:'240px 0px' }).observe(section);
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+  if (cube.decode) cube.decode().then(schedule, schedule);
+  schedule();
+})();
 
-    <!-- COURSE CARDS — to add a course: copy one <article>, change its class number & position -->
-    <article class="acad__card acad__card--1">
-      <div class="acad__card-inner">
-        <span class="acad__num">1</span>
-        <h3>HR Journey</h3>
-        <p>Get the full picture of HR, from recruitment and onboarding to engagement, rewards, employee relations and development.</p>
-      </div>
-    </article>
-
-    <article class="acad__card acad__card--2">
-      <div class="acad__card-inner">
-        <span class="acad__num">2</span>
-        <h3>Advanced HR Journey</h3>
-        <p>Made for HR professionals who want to go beyond daily tasks and start using data, business thinking and stronger HR systems to make better decisions.</p>
-      </div>
-    </article>
-
-    <article class="acad__card acad__card--3">
-      <div class="acad__card-inner">
-        <span class="acad__num">3</span>
-        <h3>AI Journey</h3>
-        <p>See how AI can actually fit into your HR work, helping you save time, analyze information, automate repetitive tasks and work smarter. Blissify_HR_Academy_Courses_2026</p>
-      </div>
-    </article>
-
-    <article class="acad__card acad__card--4">
-      <div class="acad__card-inner">
-        <span class="acad__num">4</span>
-        <h3>Strategic HR Budgeting</h3>
-        <p>Understand where the HR budget goes, forecast what the business will need and learn how to justify HR spending with numbers and ROI.</p>
-      </div>
-    </article>
-
-    <article class="acad__card acad__card--5">
-      <div class="acad__card-inner">
-        <span class="acad__num">5</span>
-        <h3>HR Analytics</h3>
-        <p>Make sense of your HR data. Choose the right metrics, build dashboards, spot useful patterns and present insights clearly to management.</p>
-      </div>
-    </article>
-
-    <!-- HUB: logo in the centre + Book Now -->
-    <div class="acad__hub">
-      <img class="acad__logo" src="assets/logos/blissify%20model%20icon%20only(1).png" loading="eager" decoding="async" fetchpriority="high" alt="Blissify" width="150" height="150" />
-      <a class="acad__book"
-         href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform"
-         target="_blank" rel="noopener">Book Now</a>
-      <p class="acad__hint">Want the full details and to join a course?</p>
-    </div>
-  </div>
-</section>
+</script>
 
   <div class="container textSliderWrapper">
     <div class="textSliderTrack">
@@ -9293,7 +9318,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
                 </div>
               </li>
               <li class="tst__card tst__card--photo">
-                <img src="assets/images/DSC06403.webp" alt="" loading="eager" onerror="this.onerror=null;this.dataset.failedSrc=this.currentSrc||this.src;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27640%27%20height%3D%27480%27%20viewBox%3D%270%200%20640%20480%27%3E%3Crect%20width%3D%27640%27%20height%3D%27480%27%20fill%3D%27%231b1851%27%2F%3E%3Ctext%20x%3D%27320%27%20y%3D%27240%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffc70a%27%20font-family%3D%27sans-serif%27%20font-size%3D%2724%27%3EImage%20unavailable%3C%2Ftext%3E%3C%2Fsvg%3E'">
+                <img src="assets/selected-photos/testimonial-03.webp" alt="Participants during a Blissify activity" loading="eager" width="1050" height="1400" style="object-position:50% 45%;">
               </li>
               <li class="tst__card tst__card--quote tst__card--wide">
                 <span class="tst__mark" aria-hidden="true">&ldquo;</span>
@@ -9391,7 +9416,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
                 </div>
               </li>
               <li class="tst__card tst__card--photo">
-                <img src="assets/images/DSC_2553.webp" alt="" loading="eager" onerror="this.onerror=null;this.dataset.failedSrc=this.currentSrc||this.src;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27640%27%20height%3D%27480%27%20viewBox%3D%270%200%20640%20480%27%3E%3Crect%20width%3D%27640%27%20height%3D%27480%27%20fill%3D%27%231b1851%27%2F%3E%3Ctext%20x%3D%27320%27%20y%3D%27240%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffc70a%27%20font-family%3D%27sans-serif%27%20font-size%3D%2724%27%3EImage%20unavailable%3C%2Ftext%3E%3C%2Fsvg%3E'">
+                <img src="assets/selected-photos/testimonial-01.webp" alt="Participants during a Blissify activity" loading="eager" width="1600" height="1200" style="object-fit:contain;object-position:center;background:#1b1851;">
               </li>
               <li class="tst__card tst__card--quote">
                 <span class="tst__mark" aria-hidden="true">&ldquo;</span>
@@ -9404,7 +9429,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
                 </div>
               </li>
               <li class="tst__card tst__card--photo">
-                <img src="assets/images/blissify.webp" alt="" loading="eager" onerror="this.onerror=null;this.dataset.failedSrc=this.currentSrc||this.src;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27640%27%20height%3D%27480%27%20viewBox%3D%270%200%20640%20480%27%3E%3Crect%20width%3D%27640%27%20height%3D%27480%27%20fill%3D%27%231b1851%27%2F%3E%3Ctext%20x%3D%27320%27%20y%3D%27240%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffc70a%27%20font-family%3D%27sans-serif%27%20font-size%3D%2724%27%3EImage%20unavailable%3C%2Ftext%3E%3C%2Fsvg%3E'">
+                <img src="assets/selected-photos/testimonial-02.webp" alt="Participants during a Blissify activity" loading="eager" width="1600" height="1200" style="object-fit:contain;object-position:center;background:#1b1851;">
               </li>
       </ul>
 
@@ -9548,7 +9573,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         --talk-navy: var(--brand-navy, #1b1851);
         --talk-yellow: var(--brand-yellow, #FFC70A);
         --talk-red: var(--brand-red, #EF4242);
-        --talk-field: rgba(27, 24, 81, .07);   /* navy tint for the inputs */
+        --talk-field: rgba(255, 255, 255, .08);   /* light tint for the inputs on navy */
         position: relative;
         padding: clamp(64px, 9vw, 130px) clamp(18px, 6vw, 80px);
         box-sizing: border-box;
@@ -9564,8 +9589,9 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         max-width: 1120px;
         margin: 0 auto;
         border-radius: 36px;
-        background: #fff;
-        color: var(--talk-navy);
+        background: var(--talk-navy);
+        border: 1px solid rgba(255, 255, 255, .14);   /* keeps the card edge readable on navy */
+        color: #fff;
         overflow: hidden;
       }
       .talk__form { position: relative; margin: 0; padding: clamp(30px, 4.5vw, 60px); }
@@ -9590,7 +9616,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         font-weight: 600;
         line-height: 1.1;
         letter-spacing: 1px;
-        color: var(--talk-navy);
+        color: #fff;
       }
       .talk__title span { color: var(--talk-red); }
 
@@ -9615,7 +9641,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         font-weight: 600;
         line-height: 1.2;
         letter-spacing: .5px;
-        color: var(--talk-navy);
+        color: #fff;
       }
       .talk__tiles { display: grid; gap: 10px; }
       .talk .talk__tile { position: relative; display: block; margin: 0; min-width: 0; font-weight: 600; cursor: pointer; }
@@ -9631,10 +9657,10 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         gap: 16px;
         min-height: 70px;
         padding: 14px 22px;
-        border: 3px solid var(--talk-navy);
+        border: 3px solid #fff;
         border-radius: 22px;
-        background: var(--talk-navy);
-        color: #fff;
+        background: #fff;
+        color: var(--talk-navy);
       }
       /* the marker: empty rounded box (more than one row can be ticked), filled when picked */
       .talk__tile-mark {
@@ -9674,7 +9700,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         font-size: .9rem;
         font-weight: 600;
         letter-spacing: .3px;
-        color: var(--talk-navy);
+        color: #fff;
       }
       .talk__input {
         display: block;
@@ -9687,10 +9713,11 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         font-family: bb, sans-serif;
         font-size: 1rem;
         line-height: 1.4;
-        color: var(--talk-navy);
+        color: #fff;
       }
+      .talk__input:-webkit-autofill { -webkit-text-fill-color: #fff; box-shadow: inset 0 0 0 100px #2b2870; }
       textarea.talk__input { min-height: 150px; border-radius: 24px; resize: vertical; }
-      .talk__input:focus { outline: none; border-color: var(--talk-navy); background: #fff; }
+      .talk__input:focus { outline: none; border-color: var(--talk-yellow); background: rgba(255, 255, 255, .12); }
 
       .talk__send {
         justify-self: start;
@@ -9706,7 +9733,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         color: var(--talk-navy);
         cursor: pointer;
       }
-      .talk__send:hover { background: var(--talk-navy); border-color: var(--talk-navy); color: var(--talk-yellow); }
+      .talk__send:hover { background: #fff; border-color: #fff; color: var(--talk-navy); }
       .talk__send:focus-visible { outline: 3px solid var(--talk-red); outline-offset: 3px; }
       .talk__send[disabled] { opacity: .6; cursor: default; }
 
@@ -9717,7 +9744,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         font-weight: 600;
         line-height: 1.5;
         text-align: inherit;
-        color: var(--talk-navy);
+        color: #fff;
       }
       .talk .talk__status:empty { display: none; }
       .talk .talk__status.is-error { padding-left: 12px; border-left: 4px solid var(--talk-red); }
@@ -9733,7 +9760,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         margin: clamp(28px, 4vw, 44px) 0 0;
         padding: 22px 30px 24px;
         border-radius: 24px;
-        background: var(--talk-navy);
+        background: #fff;
         list-style: none;
       }
       .talk__direct li { margin: 0; padding: 0; min-width: 0; }
@@ -9742,17 +9769,17 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         font-size: .9rem;
         font-weight: 600;
         letter-spacing: .3px;
-        color: var(--talk-yellow);
+        color: var(--talk-red);
       }
       .talk__direct a {
         font-size: clamp(.95rem, 1.3vw, 1.1rem);
         font-weight: 600;
         text-decoration: none;
-        color: #fff;
+        color: var(--talk-navy);
         overflow-wrap: anywhere;
       }
       .talk__direct a:hover { text-decoration: underline; }
-      .talk__direct a:focus-visible { outline: 3px solid var(--talk-yellow); outline-offset: 3px; border-radius: 4px; }
+      .talk__direct a:focus-visible { outline: 3px solid var(--talk-red); outline-offset: 3px; border-radius: 4px; }
 
       /* ---------- smaller screens: one column, services first ---------- */
       @media (max-width: 899px) {
@@ -9774,9 +9801,6 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 
     <section class="talk" id="contactus" aria-labelledby="talk-title">
       <div class="talk__card">
-        <span class="talk__shape talk__shape--tr" aria-hidden="true"></span>
-        <span class="talk__shape talk__shape--br" aria-hidden="true"></span>
-        <span class="talk__shape talk__shape--bl" aria-hidden="true"></span>
 
         <form class="talk__form" id="talk-form" action="https://api.web3forms.com/submit" method="POST">
           <input type="hidden" name="access_key" value="1c344ad3-ab2f-4da1-9d7a-b378b87f4d0d">
@@ -9940,7 +9964,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     --ft-navy: var(--brand-navy, #1b1851);
     --ft-yellow: var(--brand-yellow, #FFC70A);
     --ft-red: var(--brand-red, #EF4242);
-    --ft-mark: rgba(255, 255, 255, .06);   /* colour of the faded logo behind the partners */
+    --ft-mark: rgba(27, 24, 81, .06);      /* colour of the faded logo behind the partners */
     display: block;
     margin: 0;
     padding: 0;
@@ -9962,13 +9986,13 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     animation: ftWave var(--time) linear infinite;
     will-change: transform;
   }
-  .ft__wave--yellow { --tile: 1100px; --time: 19s; height: 100%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 100' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C100 0 200 0 300 50 C400 100 500 100 600 50 V100 H0 Z' fill='%23FFC70A'/%3E%3C/svg%3E"); }
+  .ft__wave--yellow { --tile: 1100px; --time: 19s; height: 100%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 100' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C100 0 200 0 300 50 C400 100 500 100 600 50 V100 H0 Z' fill='%23FFFFFF'/%3E%3C/svg%3E"); }   /* back wave: white */
   .ft__wave--red    { --tile: 760px;  --time: 13s; height: 78%;  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 100' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C100 0 200 0 300 50 C400 100 500 100 600 50 V100 H0 Z' fill='%23EF4242'/%3E%3C/svg%3E"); animation-direction: reverse; }
-  .ft__wave--white  { --tile: 920px;  --time: 9s;  height: 56%;  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 100' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C100 0 200 0 300 50 C400 100 500 100 600 50 V100 H0 Z' fill='%23FFFFFF'/%3E%3C/svg%3E"); }
+  .ft__wave--white  { --tile: 920px;  --time: 9s;  height: 56%;  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 100' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C100 0 200 0 300 50 C400 100 500 100 600 50 V100 H0 Z' fill='%23FFC70A'/%3E%3C/svg%3E"); }   /* front wave: yellow, melts into the yellow band */
   @keyframes ftWave { to { transform: translateX(calc(var(--tile) * -1)); } }
 
   /* ---------- 2. the white band: the four columns ---------- */
-  .ft__sea { margin-top: -1px; background: #fff; color: var(--ft-navy); }
+  .ft__sea { margin-top: -1px; background: var(--ft-yellow); color: var(--ft-navy); }
   .ft__cols {
     display: grid;
     grid-template-columns: 1.35fr 1fr 1.1fr 1fr;
@@ -9985,7 +10009,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: .5px;
-    color: var(--ft-red);
+    color: var(--ft-navy);
   }
   .ft .ft__list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
   .ft .ft__list li { margin: 0; padding: 0; }
@@ -10023,7 +10047,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
   }
   .ft__ico img { display: block; width: 20px; height: 20px; object-fit: contain; pointer-events: none; }
   .ft__ico:hover { border-color: var(--ft-red); color: var(--ft-red); }
-  .ft__ico:focus-visible { outline: 3px solid var(--ft-red); outline-offset: 3px; }
+  .ft__ico:focus-visible { outline: 3px solid var(--ft-navy); outline-offset: 3px; }
   /* on a real server the icon file is used as a mask, so it takes the brand colour (no filter trick) */
   .ft--mask .ft__ico img { display: none; }
   .ft--mask .ft__ico::before {
@@ -10038,8 +10062,8 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
   .ft__partners {
     position: relative;
     padding: clamp(44px, 5.5vw, 80px) 0 clamp(44px, 5.5vw, 84px);
-    background: var(--ft-navy);
-    color: #fff;
+    background: #fff;
+    color: var(--ft-navy);
     overflow: hidden;
   }
   /* the faded logo sits at the bottom of the band, behind the logos row */
@@ -10055,8 +10079,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
   max-width: none;
   object-fit: contain;
   object-position: center bottom;
-  filter: brightness(100);
-  opacity: .08;
+  opacity: .06;
 }
   /* on a real server the PNG is used as a mask, so the mark is one flat brand tone */
   .ft__mark.is-masked {
@@ -10077,9 +10100,9 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     line-height: 1.25;
     letter-spacing: .5px;
     text-align: center;
-    color: var(--ft-yellow);
+    color: var(--ft-navy);
   }
-  .ft__grow span { color: #fff; }
+  .ft__grow span { color: var(--ft-red); }
 
   /* partner logos: still (no motion), two rows across the whole page on desktop */
   .ft .ft__logos {
@@ -10185,7 +10208,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
   <div class="ft__partners">
     <div class="ft__mark" id="ft-mark" aria-hidden="true"><img src="assets/logos/Main.png" alt=""></div>
 
-    <h2 class="ft__grow">Organizations That Chose to Grow With <img src="assets/logos/Main.png" alt="Blissify" style="display:inline-block;height:1em;width:auto;vertical-align:-0.12em;filter:brightness(100);"></h2>
+    <h2 class="ft__grow">Organizations That Chose to Grow With <img src="assets/logos/Main.png" alt="Blissify" style="display:inline-block;height:1em;width:auto;vertical-align:-0.12em;"></h2>
     <ul class="ft__logos">
   <li><img src="assets/partners/Company Profile .png" alt="" loading="eager"></li>
   <li><img src="assets/partners/Company Profile  (1).png" alt="" loading="eager"></li>
@@ -10373,7 +10396,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 (function () {
   'use strict';
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const elements = Array.from(document.querySelectorAll('.textSliderTrack, .text-track, .carouselTrack, .partt, .acad__card-inner, .acad__lines line, .ft__wave'));
+  const elements = Array.from(document.querySelectorAll('.textSliderTrack, .text-track, .carouselTrack, .partt, .acad__card-inner, .acad__lines line, .acad__blob, .ft__wave'));
   const visible = new WeakMap();
   function update(el) {
     el.classList.toggle('blissify-motion-paused', document.hidden || motion.matches || visible.get(el) === false);

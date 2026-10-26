@@ -1,0 +1,222 @@
+[
+  {
+    "name": "hero-01",
+    "id": 20,
+    "source": "Engagement/IMG_3370.jpg",
+    "kind": "hero",
+    "path": "assets/selected-photos/hero-01.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 238040
+  },
+  {
+    "name": "hero-02",
+    "id": 35,
+    "source": "Events/Copy of DSC05404.jpg",
+    "kind": "hero",
+    "path": "assets/selected-photos/hero-02.webp",
+    "width": 1600,
+    "height": 1067,
+    "bytes": 78926
+  },
+  {
+    "name": "hero-03",
+    "id": 28,
+    "source": "Engagement/IMG_5453.JPG",
+    "kind": "hero",
+    "path": "assets/selected-photos/hero-03.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 130668
+  },
+  {
+    "name": "hero-04",
+    "id": 25,
+    "source": "Engagement/IMG_3501.JPG",
+    "kind": "hero",
+    "path": "assets/selected-photos/hero-04.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 230078
+  },
+  {
+    "name": "hero-05-team",
+    "id": "external-team",
+    "source": "0K8A0399.jpg",
+    "kind": "hero",
+    "path": "assets/selected-photos/hero-05-team.webp",
+    "width": 2200,
+    "height": 1467,
+    "bytes": 279258
+  },
+  {
+    "name": "hero-06",
+    "id": 9,
+    "source": "Engagement/Copy of IMG_5431.JPG",
+    "kind": "hero",
+    "path": "assets/selected-photos/hero-06.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 129458
+  },
+  {
+    "name": "hero-07",
+    "id": 61,
+    "source": "Retreate/IMG_5054.JPG",
+    "kind": "hero",
+    "path": "assets/selected-photos/hero-07.webp",
+    "width": 1600,
+    "height": 904,
+    "bytes": 207336
+  },
+  {
+    "name": "hero-08",
+    "id": 74,
+    "source": "Team photo/IMG_2950.JPG",
+    "kind": "hero",
+    "path": "assets/selected-photos/hero-08.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 82330
+  },
+  {
+    "name": "hero-09",
+    "id": 30,
+    "source": "Engagement/IMG_5505.JPG",
+    "kind": "hero",
+    "path": "assets/selected-photos/hero-09.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 149416
+  },
+  {
+    "name": "founder-portrait",
+    "id": 67,
+    "source": "Team photo/IMG_2715.JPG",
+    "kind": "founder",
+    "path": "assets/selected-photos/founder-portrait.webp",
+    "width": 1000,
+    "height": 1000,
+    "bytes": 110096
+  },
+  {
+    "name": "engagement-01",
+    "id": 26,
+    "source": "Engagement/IMG_3555.JPG",
+    "kind": "service-group",
+    "path": "assets/selected-photos/engagement-01.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 310888
+  },
+  {
+    "name": "engagement-02",
+    "id": 3,
+    "source": "Engagement/Copy of IMG_2464.jpg",
+    "kind": "service-portrait",
+    "path": "assets/selected-photos/engagement-02.webp",
+    "width": 1000,
+    "height": 1250,
+    "bytes": 85662
+  },
+  {
+    "name": "hr-01",
+    "id": 6,
+    "source": "Engagement/Copy of IMG_5346.JPG",
+    "kind": "service-group",
+    "path": "assets/selected-photos/hr-01.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 167254
+  },
+  {
+    "name": "hr-02",
+    "id": 10,
+    "source": "Engagement/Copy of IMG_5435.JPG",
+    "kind": "service-group",
+    "path": "assets/selected-photos/hr-02.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 155774
+  },
+  {
+    "name": "training-01",
+    "id": 7,
+    "source": "Engagement/Copy of IMG_5359.JPG",
+    "kind": "service-portrait",
+    "path": "assets/selected-photos/training-01.webp",
+    "width": 1000,
+    "height": 1250,
+    "bytes": 76838
+  },
+  {
+    "name": "training-02",
+    "id": 94,
+    "source": "Events/IMG_7452.HEIC",
+    "kind": "service-game",
+    "path": "assets/selected-photos/training-02.webp",
+    "width": 1000,
+    "height": 1250,
+    "bytes": 331210
+  },
+  {
+    "name": "recruitment-01",
+    "id": 88,
+    "source": "Events/IMG_1990.HEIC",
+    "kind": "service-portrait",
+    "path": "assets/selected-photos/recruitment-01.webp",
+    "width": 1000,
+    "height": 1250,
+    "bytes": 46544
+  },
+  {
+    "name": "recruitment-02",
+    "id": 109,
+    "source": "Events/IMG_9147.HEIC",
+    "kind": "service-portrait",
+    "path": "assets/selected-photos/recruitment-02.webp",
+    "width": 1000,
+    "height": 1250,
+    "bytes": 89030
+  },
+  {
+    "name": "stats-team",
+    "id": 52,
+    "source": "Retreate/IMG_4752.JPG",
+    "kind": "stats",
+    "path": "assets/selected-photos/stats-team.webp",
+    "width": 2200,
+    "height": 1238,
+    "bytes": 373166
+  },
+  {
+    "name": "testimonial-01",
+    "id": 95,
+    "source": "Events/IMG_7893.HEIC",
+    "kind": "testimonial-group",
+    "path": "assets/selected-photos/testimonial-01.webp",
+    "width": 1600,
+    "height": 1200,
+    "bytes": 341544
+  },
+  {
+    "name": "testimonial-02",
+    "id": 81,
+    "source": "Engagement/IMG_6701.HEIC",
+    "kind": "testimonial-group",
+    "path": "assets/selected-photos/testimonial-02.webp",
+    "width": 1600,
+    "height": 1200,
+    "bytes": 402362
+  },
+  {
+    "name": "testimonial-03",
+    "id": 13,
+    "source": "Engagement/IMG_2247.JPG",
+    "kind": "testimonial-portrait",
+    "path": "assets/selected-photos/testimonial-03.webp",
+    "width": 1050,
+    "height": 1400,
+    "bytes": 138272
+  }
+]
