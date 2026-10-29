@@ -7548,23 +7548,70 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
           margin: 0 12px !important;
           padding: 0 !important;
         }
-        .brandLogo {
+                /* ===== PARTNERS STRIP — equal gaps, same visual size, pause on hover =====
+           The logo files are already balanced by eye (each PNG has the same height,
+           with the logo sized inside it), so every logo uses the same CSS height.
+           --ps-gap = space between logos | --ps-h = logo height
+           --ps-speed = one full loop (bigger = slower) */
+        .brandsCarousel {
+          --ps-gap: 50px;
+          --ps-h: 90px;
+          --ps-speed: 70s;
+          max-height: 110px !important;
+          height: 110px !important;
+        }
 
+                .brandsCarousel .partt {
+          display: flex !important;
+          flex-wrap: nowrap;
+          width: max-content !important;
+          height: 110px !important;
           align-items: center;
-          width: 150px;
-          height: 300px;
+          animation: psLoop var(--ps-speed) linear infinite;
+        }
+
+        @keyframes psLoop {
+          from { transform: translate3d(0, 0, 0); }
+          to   { transform: translate3d(-50%, 0, 0); }
+        }
+
+        .brandsCarousel .brandLogo {
+          flex: none;
+          display: flex;
           align-items: center;
-          margin-left: 24px;
-          margin-right: 24px;
-          overflow: hidden;
-          padding-bottom: 80px;
-          color: #1b1851;
-          height: 48.117px;
-          padding-top: 0px;
-          margin-top: 16px;
+          justify-content: center;
+          width: auto !important;
+          height: 110px;
+          margin: 0 var(--ps-gap) 0 0 !important;   /* the gap = space after every logo */
+          padding: 0 !important;
+          overflow: visible;
+        }
 
+        .brandsCarousel .brandLogo img {
+          display: block;
+          width: auto !important;
+          height: var(--ps-h) !important;
+          max-width: none !important;
+          margin: 0 !important;
+        }
 
+        .brandsCarousel:hover .partt {
+          animation-play-state: paused;
+        }
 
+        @media (prefers-reduced-motion: reduce) {
+          .brandsCarousel .partt { animation: none; }
+        }
+
+        @media (max-width: 767px) {
+          .brandsCarousel {
+            --ps-gap: 56px;
+            --ps-h: 60px;
+            max-height: 84px !important;
+            height: 84px !important;
+          }
+          .brandsCarousel .partt,
+          .brandsCarousel .brandLogo { height: 84px !important; }
         }
       </style>
 
@@ -7598,106 +7645,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         class="section_projects background-color-secondary">
 
 
-        <section style="padding: 0%;">
-          <div
-            style="  width: 100% ;height: 129px;  background-color: var(--base-color-neutral--neutral-lightest) ; margin: 0px; padding: 0%;"
-            id='dotts'></div>
-<script>
-/* Replace the entire script containing var NUM_PARTICLES. */
-(function () {
-  'use strict';
-  const host = document.getElementById('dotts');
-  if (!host) return;
-  const canvas = document.createElement('canvas');
-  canvas.setAttribute('aria-hidden', 'true');
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
-  host.appendChild(canvas);
-  const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const rows = 25, spacing = 5, margin = 2, thickness = Math.pow(180, 1.6);
-  let width, height, particles, pixels, raf = 0, visible = false, pointer = false;
-  let mx = 0, my = 0, last = 0;
-  function rebuild() {
-    const columns = Math.max(1, Math.ceil(host.clientWidth / spacing));
-    width = canvas.width = columns * spacing + margin * 2;
-    height = canvas.height = rows * spacing + margin * 2;
-    particles = new Float32Array(rows * columns * 6);
-    for (let i = 0; i < rows * columns; i++) {
-      const offset = i * 6;
-      particles[offset] = particles[offset + 2] = margin + spacing * (i % columns);
-      particles[offset + 1] = particles[offset + 3] = margin + spacing * Math.floor(i / columns);
-    }
-    pixels = ctx.createImageData(width, height);
-    draw();
-  }
-  function draw() {
-    const data = pixels.data;
-    data.fill(0);
-    for (let i = 0; i < particles.length; i += 6) {
-      const x = Math.floor(particles[i]), y = Math.floor(particles[i + 1]);
-      if (x >= 0 && x < width && y >= 0 && y < height) data[(x + y * width) * 4 + 3] = 255;
-    }
-    ctx.putImageData(pixels, 0, 0);
-  }
-  function frame(now) {
-    raf = 0;
-    if (!visible || document.hidden || motion.matches) return;
-    if (now - last >= 1000 / 30) {
-      last = now;
-      if (!pointer) {
-        const t = now * .001;
-        mx = width * .5 + Math.cos(t * 2.1) * Math.cos(t * .9) * width * .45;
-        my = height * .5 + Math.sin(t * 3.2) * Math.tan(Math.sin(t * .8)) * height * .45;
-      }
-      for (let i = 0; i < particles.length; i += 6) {
-        const dx = mx - particles[i], dy = my - particles[i + 1];
-        const d = dx * dx + dy * dy;
-        if (d < thickness) {
-          const angle = Math.atan2(dy, dx), force = -thickness / Math.max(d, 1);
-          particles[i + 4] += force * Math.cos(angle);
-          particles[i + 5] += force * Math.sin(angle);
-        }
-        particles[i + 4] *= .95;
-        particles[i + 5] *= .95;
-        particles[i] += particles[i + 4] + (particles[i + 2] - particles[i]) * .125;
-        particles[i + 1] += particles[i + 5] + (particles[i + 3] - particles[i + 1]) * .125;
-      }
-      draw();
-    }
-    raf = requestAnimationFrame(frame);
-  }
-  function sync() {
-    if (raf) cancelAnimationFrame(raf);
-    raf = 0;
-    last = 0;
-    if (visible && !document.hidden && !motion.matches) raf = requestAnimationFrame(frame);
-    else if (motion.matches) { rebuild(); }
-  }
-  host.addEventListener('pointermove', function (event) {
-    const bounds = canvas.getBoundingClientRect();
-    mx = (event.clientX - bounds.left) * width / Math.max(bounds.width, 1);
-    my = (event.clientY - bounds.top) * height / Math.max(bounds.height, 1);
-    pointer = true;
-  }, { passive: true });
-  host.addEventListener('pointerleave', function () { pointer = false; });
-  document.addEventListener('visibilitychange', sync);
-  motion.addEventListener('change', sync);
-  rebuild();
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; sync(); }).observe(host);
-  } else { visible = true; sync(); }
-  if ('ResizeObserver' in window) {
-    let previousWidth = host.clientWidth;
-    new ResizeObserver(function () {
-      if (host.clientWidth !== previousWidth) { previousWidth = host.clientWidth; rebuild(); }
-    }).observe(host);
-  } else { window.addEventListener('resize', rebuild); }
-})();
-
-</script>
-
-
-        </section>
+        
 
 
         <style>
@@ -7761,62 +7709,74 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 
         <!-- =====================================================================
              BLISSIFY — HR TRANSFORMATION IN SIX PHASES
-             Replaces the old "Challenges We Address" section.
-             A staircase of bars: every phase is one step higher than the one before.
-             Phases 1-6 are the core path (navy, getting darker as HR matures),
-             the 7th (Employer Branding, optional) is the red step at the top.
+             A staircase on white: every phase is one step higher than the one before,
+             and every bar has the Blissify smile cut out of its top.
+             Phases 1-6 are the core path (purple getting lighter, then yellow),
+             the 7th (Employer Branding) is an add-on: the red step at the top.
              The bars grow up once when the section scrolls into view.
              Phone: the steps turn into a list, each bar a little wider than the last.
              CSS is scoped with the .ph prefix.
 
-             TO EDIT A STEP: change the text inside its <li>. Its colour is --c,
-             its height on desktop is --h (percent of the tallest step).
+             TO EDIT A STEP: change the text inside its <li>.
+               --c = bar colour, --t = text colour on the bar,
+               --h = its height on desktop (percent of the tallest step).
              ===================================================================== -->
         <style>
           .ph {
             --ph-navy: var(--brand-navy, #1b1851);
             --ph-yellow: var(--brand-yellow, #FFC70A);
             --ph-red: var(--brand-red, #EF4242);
+            --ph-bg: #ffffff;
+            position: relative;
             padding: clamp(56px, 8vw, 120px) 5%;
-            background: var(--base-color-neutral--neutral-lightest, #eee);
+            background: var(--ph-bg);
             color: var(--ph-navy);
             font-family: bb, sans-serif;
             overflow: hidden;
           }
           .ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
-          .ph__inner { max-width: 1240px; margin: 0 auto; }
+          .ph__inner { position: relative; max-width: 1240px; margin: 0 auto; }
 
-          .ph .ph__eyebrow {
-            margin: 0;
-            opacity: 1;
-            font-family: bb, sans-serif;
-            font-size: .95rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-align: inherit;
-            color: var(--ph-red);
+          /* the two brand circles, top right */
+          .ph__duo {
+            position: absolute;
+            right: 5%;
+            top: clamp(40px, 5vw, 80px);
+            width: clamp(220px, 26vw, 380px);
+            aspect-ratio: 600 / 440;
+            pointer-events: none;
           }
+          .ph__duo span { position: absolute; border-radius: 50%; }
+          .ph__duo span:first-child {
+            left: 0; top: 0; width: 70%; aspect-ratio: 1;
+            background: linear-gradient(90deg, var(--ph-red) 0%, #a3324c 45%, var(--ph-navy) 100%);
+          }
+          .ph__duo span:last-child {
+            left: 50%; top: 14%; width: 50%; aspect-ratio: 1;
+            background: linear-gradient(90deg, var(--ph-yellow) 0%, #c9971a 45%, var(--ph-navy) 100%);
+          }
+
           .ph__title {
+            position: relative;
+            max-width: min(760px, calc(100% - clamp(220px, 26vw, 380px) - 32px));   /* never runs under the circles */
             margin: 0;
             font-family: bb, sans-serif;
-            font-size: clamp(2rem, 4.2vw, 3.6rem);
-            font-weight: 700;
-            line-height: 1.08;
-            letter-spacing: -.5px;
+            font-size: clamp(2rem, 4.4vw, 4rem);
+            font-weight: 400;
+            line-height: 1.05;
             color: var(--ph-navy);
           }
-          .ph__title span { color: var(--ph-yellow); }
 
           /* ---------- the staircase ---------- */
           .ph__steps {
+            position: relative;
             list-style: none;
             display: grid;
             grid-template-columns: repeat(7, minmax(0, 1fr));
             align-items: end;
-            gap: clamp(8px, 1vw, 14px);
-            height: clamp(360px, 36vw, 470px);
-            margin: clamp(36px, 5vw, 64px) 0 0;
+            gap: clamp(8px, 1.1vw, 16px);
+            height: clamp(380px, 36vw, 480px);
+            margin: clamp(40px, 6vw, 96px) 0 0;
             padding: 0;
             border-bottom: 2px solid var(--ph-navy);
           }
@@ -7829,22 +7789,22 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
             padding: 0;
             min-width: 0;
           }
-          .ph__name {
+          .ph .ph__name {
             margin: 0 0 10px;
             font-family: bb, sans-serif;
-            font-size: clamp(.82rem, 1.05vw, 1.02rem);
-            font-weight: 700;
-            line-height: 1.25;
+            font-size: clamp(.82rem, 1.05vw, 1rem);
+            font-weight: 600;
+            line-height: 1.3;
             color: var(--ph-navy);
           }
           .ph__tag {
             display: inline-block;
             margin-top: 6px;
-            padding: 2px 9px;
+            padding: 3px 10px;
             border-radius: 999px;
-            font-size: .72rem;
+            font-size: .7rem;
             font-weight: 700;
-            letter-spacing: .5px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             background: var(--ph-yellow);
             color: var(--ph-navy);
@@ -7852,12 +7812,25 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
           .ph__tag--opt { background: var(--ph-red); color: #fff; }
 
           .ph__bar {
+            position: relative;
             height: var(--h);
-            padding: clamp(12px, 1.3vw, 18px) clamp(10px, 1.2vw, 16px);
-            border-radius: 12px 12px 0 0;
+            padding: clamp(36px, 3.4vw, 46px) clamp(10px, 1.2vw, 16px) 0;
+            border-radius: clamp(14px, 1.6vw, 22px) clamp(14px, 1.6vw, 22px) 0 0;
             background: var(--c);
-            color: #fff;
+            color: var(--t, #fff);
+            overflow: hidden;
             transform-origin: bottom;
+          }
+          /* the smile: a half circle cut out of the top of every bar */
+          .ph__bar::before {
+            content: "";
+            position: absolute;
+            left: 50%; top: 0;
+            width: clamp(36px, 3.8vw, 58px);
+            aspect-ratio: 2 / 1;
+            transform: translateX(-50%);
+            border-radius: 0 0 999px 999px;
+            background: var(--ph-bg);
           }
           .ph__label {
             display: block;
@@ -7865,17 +7838,15 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
-            opacity: .75;
+            opacity: .8;
           }
           .ph__num {
             display: block;
             margin-top: 2px;
-            font-size: clamp(1.6rem, 2.6vw, 2.4rem);
-            font-weight: 700;
+            font-size: clamp(1.7rem, 3vw, 2.9rem);
+            font-weight: 400;
             line-height: 1;
           }
-          /* the optional top step: red, with an outline so it reads as "extra" */
-          .ph__step--opt .ph__bar { box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .35); }
 
           /* grow-up entrance (only when JS is on) */
           .ph--anim .ph__bar { transform: scaleY(0); transition: transform .7s cubic-bezier(.2, .7, .2, 1); }
@@ -7894,6 +7865,9 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 
           /* ---------- tablet / phone: a list, each bar a little wider ---------- */
           @media (max-width: 860px) {
+            /* phones: the circles sit above the title instead of beside it */
+            .ph__duo { position: relative; right: auto; top: auto; width: 130px; margin: 0 0 18px; }
+            .ph__title { max-width: none; }
             .ph__steps {
               grid-template-columns: 1fr;
               align-items: stretch;
@@ -7908,51 +7882,57 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
               width: calc(var(--h) * .55 + 60px);
               height: auto;
               min-height: 64px;
-              border-radius: 0 12px 12px 0;
+              padding: 12px 14px;
+              border-radius: 0 16px 16px 0;
               transform-origin: left;
             }
+            /* the smile moves to the right end of each bar */
+            .ph__bar::before {
+              left: auto; right: 0; top: 50%;
+              width: 18px; aspect-ratio: 1 / 2;
+              transform: translateY(-50%);
+              border-radius: 999px 0 0 999px;
+            }
             .ph--anim .ph__bar { transform: scaleX(0); }
-            .ph__name { margin: 0 0 0 14px; font-size: 1rem; }
+            .ph .ph__name { margin: 0 0 0 14px; font-size: 1rem; }
             .ph__num { font-size: 1.6rem; }
           }
         </style>
-
         <section class="ph" aria-labelledby="ph-title">
+          <div class="ph__duo" aria-hidden="true"><span></span><span></span></div>
           <div class="ph__inner">
             <h2 class="ph__title" id="ph-title">HR Transformation in Six Phases</h2>
-
             <ol class="ph__steps">
-              <li class="ph__step" style="--h:22%; --c:#7d7aa8;">
+              <li class="ph__step" style="--h:28%; --c:#3d3a78; --t:#fff;">
                 <p class="ph__name">HR Gap Analysis &amp; Systems Audit</p>
                 <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">01</span></div>
               </li>
-              <li class="ph__step" style="--h:32%; --c:#605d93;">
+              <li class="ph__step" style="--h:37%; --c:#575391; --t:#fff;">
                 <p class="ph__name">Org Structure &amp; Job Analysis</p>
                 <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">02</span></div>
               </li>
-              <li class="ph__step" style="--h:42%; --c:#4a4683;">
+              <li class="ph__step" style="--h:46%; --c:#7470aa; --t:#fff;">
                 <p class="ph__name">Policies &amp; Procedures</p>
                 <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">03</span></div>
               </li>
-              <li class="ph__step" style="--h:52%; --c:#383472;">
+              <li class="ph__step" style="--h:55%; --c:#a19ec6; --t:#1b1851;">
                 <p class="ph__name">Performance Management System</p>
                 <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">04</span></div>
               </li>
-              <li class="ph__step" style="--h:62%; --c:#2a2663;">
+              <li class="ph__step" style="--h:64%; --c:#FFE08A; --t:#1b1851;">
                 <p class="ph__name">Learning &amp; Development Framework</p>
                 <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">05</span></div>
               </li>
-              <li class="ph__step" style="--h:72%; --c:#1b1851;">
+              <li class="ph__step" style="--h:73%; --c:#FFC70A; --t:#1b1851;">
                 <p class="ph__name">HR Digitization <span class="ph__tag">Recommended</span></p>
                 <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">06</span></div>
               </li>
-              <li class="ph__step ph__step--opt" style="--h:82%; --c:#EF4242;">
-                <p class="ph__name">Employer Branding <span class="ph__tag ph__tag--opt">Optional</span></p>
+              <li class="ph__step ph__step--opt" style="--h:82%; --c:#EF4242; --t:#fff;">
+                <p class="ph__name">Employer Branding <span class="ph__tag ph__tag--opt">Add-on</span></p>
                 <div class="ph__bar"><span class="ph__label">Phase</span><span class="ph__num">07</span></div>
               </li>
             </ol>
           </div>
-
           <script>
             /* the bars grow up once, when the section scrolls into view */
             (function () {
@@ -7982,34 +7962,109 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         <section style="z-index: 99; margin-top: 0%;padding-bottom: 0px; padding: 0%; "
           class="d-flex flex-column vh-100 justify-content-center align-items-center"
           style=" height: 2px;padding-top: 30px;">
-          <div style=" height: 350px; width: 100% ; " class=" container brandsCarousel">
-            <div style="width: 5000vh;height: 250px;display: flex;padding: 0;" class="d-flex partt">
-  <script>
-    (function () {
-      const track = document.currentScript.parentElement;
-      const fragment = document.createDocumentFragment();
-
-      for (let repeat = 0; repeat < 5; repeat++) {
-        for (let i = 0; i <= 48; i++) {
-          const box = document.createElement('div');
-          box.className = 'brandLogo';
-
-          const img = document.createElement('img');
-          img.src = 'assets/partners/Company Profile' +
-  (i === 0 ? ' ' : '  (' + i + ')') + '.png';
-          img.alt = '';
-          img.loading = 'eager';
-          img.style.cssText = 'width:100%;height:100%;object-fit:contain;';
-
-          box.appendChild(img);
-          fragment.appendChild(box);
-        }
-      }
-
-      track.appendChild(fragment);
-    })();
-  </script>
-</div>
+          <div style=" height: 350px; width: 100% ; " class=" container brandsCarousel" aria-label="Our partners">
+            <div class="d-flex partt">
+              <!-- copy 1 -->
+              <div class="brandLogo"><img src="assets/partners/partner-01.png" alt="COA Holding Company"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-02.png" alt="Beyond Insurance Brokerage"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-03.png" alt="Accepted Deviation"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-04.png" alt="WiselyInsure"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-05.png" alt="Mär"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-06.png" alt="Mint"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-07.png" alt="TMS"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-08.png" alt="Fahim"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-09.png" alt="Construction"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-10.png" alt="DCarbon Global"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-11.png" alt="Carina"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-12.png" alt="MWG Advertising Agency"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-13.png" alt="Rawa"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-14.png" alt="TSME Technology Strategies"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-15.png" alt="KONE"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-16.png" alt="Mrsool"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-17.png" alt="Tricom Controls"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-18.png" alt="ant"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-19.png" alt="BE Telecom"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-20.png" alt="Heallo Care"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-21.png" alt="Partner logo"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-22.png" alt="Maqam Cosmetics"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-23.png" alt="Interior Zone Academy"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-24.png" alt="Tatbeek Digital Transformation"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-25.png" alt="WFRLEY"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-26.png" alt="Tech-Hub"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-27.png" alt="Hagras Group"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-28.png" alt="Furvive"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-29.png" alt="SubsBase"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-30.png" alt="Ministry of Communications and Information Technology"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-31.png" alt="AAST Entrepreneurship Center"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-32.png" alt="Vitrine Furniture"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-33.png" alt="Wisely Wellness"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-34.png" alt="evRAID"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-35.png" alt="FlakeTech"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-36.png" alt="iFIT"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-37.png" alt="DataScience"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-38.png" alt="DOTS"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-39.png" alt="TMG Online Sales Branch"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-40.png" alt="Guide Academy"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-41.png" alt="Adsero"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-42.png" alt="SkyLife"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-43.png" alt="Petsoffice"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-44.png" alt="Nouvelage Aesthetic Clinics"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-45.png" alt="Speakol"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-46.png" alt="Banque du Caire"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-47.png" alt="Malabisy"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-48.png" alt="Career180"></div>
+              <div class="brandLogo"><img src="assets/partners/partner-49.png" alt="ACTA"></div>
+              <!-- copy 2 (same logos again, so the loop never shows a gap) -->
+              <div class="brandLogo"><img src="assets/partners/partner-01.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-02.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-03.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-04.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-05.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-06.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-07.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-08.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-09.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-10.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-11.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-12.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-13.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-14.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-15.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-16.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-17.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-18.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-19.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-20.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-21.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-22.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-23.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-24.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-25.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-26.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-27.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-28.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-29.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-30.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-31.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-32.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-33.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-34.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-35.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-36.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-37.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-38.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-39.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-40.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-41.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-42.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-43.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-44.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-45.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-46.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-47.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-48.png" alt=""></div>
+              <div class="brandLogo"><img src="assets/partners/partner-49.png" alt=""></div>
+            </div>
           </div>
         </section>
 
@@ -8604,12 +8659,35 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
   </header>
 
   <!-- 01 -->
+  <article id="service-hr" class="svc__row svc__row--flip">
+    <div class="svc__gallery">
+      <div class="svc__brand" aria-hidden="true" style="--s-smile:#EF4242;">
+        <span class="svc__shape svc__shape--smile"></span>
+      </div>
+      <span class="svc__num" aria-hidden="true">1</span>
+      <figure class="svc__photo svc__photo--a">
+        <img src="assets/selected-photos/hr-01.webp" alt="Blissify hr activity" loading="eager" width="1600" height="900" style="object-fit:cover;object-position:center;">
+      </figure>
+      <figure class="svc__photo svc__photo--b">
+        <img src="assets/selected-photos/hr-02.webp" alt="Blissify hr activity" loading="eager" width="1600" height="900" style="object-fit:cover;object-position:center;">
+      </figure>
+    </div>
+    <div class="svc__body">
+      <h3 class="svc__title"><span>HR</span> Consultation &amp; CHRO as a Service</h3>
+      <p class="svc__tagline">Less Firefighting. More Structure.</p>
+      <p class="svc__lead">From company policies and job descriptions to performance management and talent planning, we build HR systems that work together and grow with your business.</p>
+      <a class="svc__cta" href="#contactus" data-talk-service="HR Consulting">Elevate Your HR</a>
+    </div>
+  </article>
+  
+
+  <!-- 02 -->
   <article id="service-engagement" class="svc__row">
     <div class="svc__gallery">
       <div class="svc__brand" aria-hidden="true" style="--s-smile:#FFC70A;">
         <span class="svc__shape svc__shape--smile"></span>
       </div>
-      <span class="svc__num" aria-hidden="true">1</span>
+      <span class="svc__num" aria-hidden="true">2</span>
       <figure class="svc__photo svc__photo--a">
         <img src="assets/selected-photos/engagement-01.webp" alt="Blissify engagement activity" loading="eager" width="1600" height="900" style="object-fit:cover;object-position:center;">
       </figure>
@@ -8625,57 +8703,13 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     </div>
   </article>
 
-  <!-- 02 -->
-  <article id="service-hr" class="svc__row svc__row--flip">
-    <div class="svc__gallery">
-      <div class="svc__brand" aria-hidden="true" style="--s-smile:#EF4242;">
-        <span class="svc__shape svc__shape--smile"></span>
-      </div>
-      <span class="svc__num" aria-hidden="true">2</span>
-      <figure class="svc__photo svc__photo--a">
-        <img src="assets/selected-photos/hr-01.webp" alt="Blissify hr activity" loading="eager" width="1600" height="900" style="object-fit:cover;object-position:center;">
-      </figure>
-      <figure class="svc__photo svc__photo--b">
-        <img src="assets/selected-photos/hr-02.webp" alt="Blissify hr activity" loading="eager" width="1600" height="900" style="object-fit:cover;object-position:center;">
-      </figure>
-    </div>
-    <div class="svc__body">
-      <h3 class="svc__title"><span>HR</span> Consultation &amp; CHRO as a Service</h3>
-      <p class="svc__tagline">Less Firefighting. More Structure.</p>
-      <p class="svc__lead">From company policies and job descriptions to performance management and talent planning, we build HR systems that work together and grow with your business.</p>
-      <a class="svc__cta" href="#contactus" data-talk-service="HR Consulting">Elevate Your HR</a>
-    </div>
-  </article>
-
   <!-- 03 -->
-  <article id="service-training" class="svc__row">
-    <div class="svc__gallery">
-      <div class="svc__brand" aria-hidden="true" style="--s-smile:#FFC70A;">
-        <span class="svc__shape svc__shape--smile"></span>
-      </div>
-      <span class="svc__num" aria-hidden="true">3</span>
-      <figure class="svc__photo svc__photo--a">
-        <img src="assets/selected-photos/training-01.webp" alt="Blissify training activity" loading="eager" width="1000" height="1250" style="object-position:center;">
-      </figure>
-      <figure class="svc__photo svc__photo--b">
-        <img src="assets/selected-photos/training-02.webp" alt="Blissify training activity" loading="eager" width="1000" height="1250" style="object-position:center;">
-      </figure>
-    </div>
-    <div class="svc__body">
-      <h3 class="svc__title"><span>Training</span> &amp; Game-Based Learning</h3>
-      <p class="svc__tagline">Less Listening. More Doing.</p>
-      <p class="svc__lead">We make learning practical through simulations, challenges, and game-based workshops where employees practice real skills instead of just hearing about them.</p>
-      <a class="svc__cta" href="#contactus" data-talk-service="Training">Train in the Fun Way</a>
-    </div>
-  </article>
-
-  <!-- 04 -->
   <article id="service-recruitment" class="svc__row svc__row--flip">
     <div class="svc__gallery">
       <div class="svc__brand" aria-hidden="true" style="--s-smile:#EF4242;">
         <span class="svc__shape svc__shape--smile"></span>
       </div>
-      <span class="svc__num" aria-hidden="true">4</span>
+      <span class="svc__num" aria-hidden="true">3</span>
       <figure class="svc__photo svc__photo--a">
         <img src="assets/selected-photos/recruitment-01.webp" alt="Blissify recruitment activity" loading="eager" width="1000" height="1250" style="object-position:center;">
       </figure>
@@ -8690,6 +8724,28 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
       <a class="svc__cta" href="#contactus" data-talk-service="Recruitment">Find Your Top Talent</a>
     </div>
   </article>
+  <!-- 04 -->
+  <article id="service-training" class="svc__row">
+    <div class="svc__gallery">
+      <div class="svc__brand" aria-hidden="true" style="--s-smile:#FFC70A;">
+        <span class="svc__shape svc__shape--smile"></span>
+      </div>
+      <span class="svc__num" aria-hidden="true">4</span>
+      <figure class="svc__photo svc__photo--a">
+        <img src="assets/selected-photos/training-01.webp" alt="Blissify training activity" loading="eager" width="1000" height="1250" style="object-position:center;">
+      </figure>
+      <figure class="svc__photo svc__photo--b">
+        <img src="assets/selected-photos/training-02.webp" alt="Blissify training activity" loading="eager" width="1000" height="1250" style="object-position:center;">
+      </figure>
+    </div>
+    <div class="svc__body">
+      <h3 class="svc__title"><span>Training</span> &amp; Game-Based Learning</h3>
+      <p class="svc__tagline">Less Listening. More Doing.</p>
+      <p class="svc__lead">We make learning practical through simulations, challenges, and game-based workshops where employees practice real skills instead of just hearing about them.</p>
+      <a class="svc__cta" href="#contactus" data-talk-service="Training">Train in the Fun Way</a>
+    </div>
+  </article>
+  
 
 </section>
 
@@ -8807,40 +8863,6 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 
 
 
-      <section style="font-family: bb;" class="section_parallax">
-        <div class="parallax_wrap">
-          <div class="padding-global">
-            <div class="container-large">
-              <div class="padding-section-medium">
-                <div class="stat_component">
-                  <div class="w-layout-grid stat_list">
-                    <div data-w-id="4ca9e32e-c84f-b28a-d94e-bf5af664a414" style="opacity:0" class="stat_item">
-                      <div class="stat_number">2.1 <span style="color: #FFC70A;">X</span></div>
-                      <div> <span style="">Higher</span> profitability</div>
-                    </div>
-                    <div data-w-id="4ca9e32e-c84f-b28a-d94e-bf5af664a420" style="opacity:0" class="stat_item">
-                      <div class="stat_number">+17<span style="color: #FFC70A;">%</span></div>
-                      <div><span style="">Higher</span> productivity</div>
-                    </div>
-                    <div data-w-id="4ca9e32e-c84f-b28a-d94e-bf5af664a41a" style="opacity:0" class="stat_item">
-                      <div class="stat_number">2.3 <span style="color: #FFC70A;">X</span></div>
-                      <div><span style="">Higher</span> customer satisfaction</div>
-                    </div>
-                    <div id="w-node-_0281ac95-3c18-16f3-2dc9-6792567fcf01-614ffb99"
-                      data-w-id="0281ac95-3c18-16f3-2dc9-6792567fcf01" style="opacity:0" class="stat_item">
-                      <div class="stat_number">-25<span style="color: #FFC70A;">%</span></div>
-                      <div><span style="">Less</span> Turnovers</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="parallax_overlay"></div>
-        <img class="parallax_content"  src="assets/selected-photos/stats-team.webp" alt="Participants at a Blissify team activity" loading="eager" width="2200" height="1238"/>
-      </section>
-
       <style>
         .q {
           height: 50vh;
@@ -8909,9 +8931,30 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
   position:relative; padding:100px 24px 80px; background:#fff; color:var(--acad-navy); isolation:isolate;
 }
 .acad *, .acad *::before, .acad *::after { box-sizing:border-box; }
-.acad::before,.acad::after { content:""; position:absolute; pointer-events:none; z-index:-1; border-radius:50%; opacity:.18; }
-.acad::before { width:240px; height:240px; right:2%; top:150px; background:var(--acad-red); }
-.acad::after { width:320px; height:320px; left:-130px; bottom:15%; background:var(--acad-yellow); }
+/* ---------- brand decorations: the "b" smile shape and the yellow smile ----------
+   Only three pieces, so the section stays grown-up:
+     1. a big "b" smile hanging from the top-right corner
+     2. a yellow smile in the empty space next to course 1
+     3. the cube's two happy eyes, in yellow, next to course 4
+   TO EDIT: change width/top/left/right on .acad__deco--b-top, --smile, --eyes. */
+.acad__deco { position:absolute; z-index:0; pointer-events:none; display:block; }
+.acad__deco svg, .acad__deco img { display:block; width:100%; height:auto; }
+.acad__step { position:relative; }
+.acad__deco--b-top { top:0; right:6%; width:clamp(140px,17vw,240px); }
+/* b-01.png has a lot of empty space around the shape: this frame shows only the shape */
+.acad__deco--b-top { aspect-ratio:562 / 368; overflow:hidden; }
+.acad .acad__deco--b-top img { width:192.2%; max-width:none; height:auto; margin:-87.4% 0 0 -46.1%; }
+.acad__deco--smile {
+  left:calc((100% - var(--acad-gutter)) / 4); top:50%; width:clamp(120px,12vw,170px); aspect-ratio:2/1;
+  transform:translate(-50%,-50%);
+  border-radius:0 0 999px 999px; background:var(--acad-yellow);
+}
+.acad__deco--eyes { right:calc((100% - var(--acad-gutter)) / 4); top:50%; width:clamp(170px,17vw,220px); transform:translate(50%,-50%) rotate(-6deg); }
+@media(max-width:767px) {
+  /* phones: the cards take the full width, so only the top shape stays, smaller */
+  .acad__deco--smile, .acad__deco--eyes { display:none; }
+  .acad__deco--b-top { width:110px; right:4%; }
+}
 .acad__head { max-width:800px; margin:0 auto 64px; text-align:center; }
 .acad__tagline { margin:0 0 20px; font-family:bb,sans-serif; font-size:clamp(24px,3vw,40px); line-height:1.2; color:var(--acad-gold); }
 .acad__tagline span { color:var(--acad-navy); }
@@ -8986,7 +9029,8 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 }
 </style>
 <section class="acad" id="academy" aria-labelledby="acad-title">
-<header class="acad__head">
+  <span class="acad__deco acad__deco--b-top" aria-hidden="true"><img src="assets/logos/b-01.png" alt=""></span>
+  <header class="acad__head">
     <div class="acad__tagline"><span>Our </span>Academy</div>
     <h2 class="acad__title" id="acad-title"><img src="assets/logos/Main.png" alt="Blissify" style="display:inline-block;height:1em;width:auto;vertical-align:-0.12em;"><span> HR</span> Academy</h2>
     <p class="acad__lead">Five programs that take you from HR fundamentals to AI, analytics and strategy. Pick your path and grow with us.</p>
@@ -8994,10 +9038,10 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 
   
 <div class="acad__journey"><div class="acad__rail" aria-hidden="true"><div class="acad__rail-fill"></div></div><div class="acad__steps">
-<div class="acad__step"><article class="acad__course" aria-labelledby="acad-course-1"><span class="acad__num">1</span><h3 id="acad-course-1">HR Journey</h3><p>Get the full picture of HR, from recruitment and onboarding to engagement, rewards, employee relations and development.</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="HR Journey" aria-label="Book HR Journey">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
+<div class="acad__step"><span class="acad__deco acad__deco--smile" aria-hidden="true"></span><article class="acad__course" aria-labelledby="acad-course-1"><span class="acad__num">1</span><h3 id="acad-course-1">HR Journey</h3><p>Get the full picture of HR, from recruitment and onboarding to engagement, rewards, employee relations and development.</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="HR Journey" aria-label="Book HR Journey">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
 <div class="acad__step"><article class="acad__course" aria-labelledby="acad-course-2"><span class="acad__num">2</span><h3 id="acad-course-2">Advanced HR Journey</h3><p>Made for HR professionals who want to go beyond daily tasks and start using data, business thinking and stronger HR systems to make better decisions.</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="Advanced HR Journey" aria-label="Book Advanced HR Journey">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
 <div class="acad__step"><article class="acad__course" aria-labelledby="acad-course-3"><span class="acad__num">3</span><h3 id="acad-course-3">AI Journey</h3><p>See how AI can actually fit into your HR work, helping you save time, analyze information, automate repetitive tasks and work smarter. Blissify_HR_Academy_Courses_2026</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="AI Journey" aria-label="Book AI Journey">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
-<div class="acad__step"><article class="acad__course" aria-labelledby="acad-course-4"><span class="acad__num">4</span><h3 id="acad-course-4">Strategic HR Budgeting</h3><p>Understand where the HR budget goes, forecast what the business will need and learn how to justify HR spending with numbers and ROI.</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="Strategic HR Budgeting" aria-label="Book Strategic HR Budgeting">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
+<div class="acad__step"><span class="acad__deco acad__deco--eyes" aria-hidden="true"><img src="assets/logos/smile.png" alt=""></span><article class="acad__course" aria-labelledby="acad-course-4"><span class="acad__num">4</span><h3 id="acad-course-4">Strategic HR Budgeting</h3><p>Understand where the HR budget goes, forecast what the business will need and learn how to justify HR spending with numbers and ROI.</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="Strategic HR Budgeting" aria-label="Book Strategic HR Budgeting">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
 <div class="acad__step"><article class="acad__course" aria-labelledby="acad-course-5"><span class="acad__num">5</span><h3 id="acad-course-5">HR Analytics</h3><p>Make sense of your HR data. Choose the right metrics, build dashboards, spot useful patterns and present insights clearly to management.</p><a class="acad__book acad__course-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener" data-academy-course="HR Analytics" aria-label="Book HR Analytics">Book Now</a></article><span class="acad__node" aria-hidden="true"></span></div>
 </div><div class="acad__traveller" aria-hidden="true"><img class="acad__logo acad__cube-img" src="assets/logos/blissify%20model%20icon%20only(1).png" alt="" width="150" height="150" loading="eager"></div><div class="acad__finish"><a class="acad__book acad__final-book" href="https://docs.google.com/forms/d/e/1FAIpQLSfn81_RMctIK4GxU1XEvrixW-dxt9kWBFFdUnDTuFfHtu4msA/viewform" target="_blank" rel="noopener">Book Now</a><p class="acad__hint">Want the full details and to join a course?</p></div></div></section>
 <script>
@@ -9181,13 +9225,21 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
         list-style: none;
         overflow-x: auto;
         overflow-y: hidden;
-        scroll-snap-type: x mandatory;
+        scroll-snap-type: x proximity;      /* a soft pull to the nearest card, so touchpad swipes stay smooth */
         scroll-padding: 0 5%;
-        scroll-behavior: smooth;
+        overscroll-behavior-x: contain;     /* a sideways swipe here never makes the browser go back a page */
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        cursor: grab;
       }
+      /* while dragging with the mouse: no snapping, no text selection */
+      .tst .tst__track.is-dragging { scroll-snap-type: none; cursor: grabbing; user-select: none; }
+      /* phones: a swipe always lands exactly on a card */
+      @media (hover: none) { .tst .tst__track { scroll-snap-type: x mandatory; cursor: auto; } }
       .tst__track::-webkit-scrollbar { display: none; }
+            /* smoother swiping: each card is painted on its own, and the row gets its own layer */
+      .tst .tst__track { will-change: scroll-position; }
+      .tst .tst__card { contain: paint; }
       .tst__track:focus-visible { outline: 3px solid var(--tst-navy); outline-offset: -3px; }
 
       .tst .tst__card {
@@ -9445,8 +9497,10 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
       <script>
         /* Endless row: the cards are copied once before and once after the real ones.
            When the row comes to rest inside a copy, it jumps (invisibly) to the same
-           card in the real set, so it never reaches an end. Without JavaScript it is
-           simply a normal row that stops at the last card. */
+           card in the real set, so it never reaches an end.
+           Ways to move it: the arrows, a touchpad swipe, a finger on a phone,
+           or clicking and dragging with the mouse. The jump only happens once the
+           row has fully stopped, so a swipe is never cut in the middle. */
         (function () {
           var track = document.getElementById('tst-track');
           var prev = document.getElementById('tst-prev');
@@ -9456,19 +9510,29 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
           var real = Array.prototype.slice.call(track.children);
           if (real.length < 2) return;
 
+          /* photos are decoded off the main thread, so they never hold up a swipe */
+          Array.prototype.forEach.call(track.querySelectorAll('img'), function (img) { img.decoding = 'async'; });
+
           /* Fit the words to the card: every card is as tall as the tallest one, so a short
              quote is enlarged step by step until its text fills the room it has. */
           function fit() {
             var cards = track.querySelectorAll('.tst__card--quote');
             var i, q, lo, hi, mid, room, range = document.createRange();
-            for (i = 0; i < cards.length; i++) cards[i].querySelector('.tst__quote').style.fontSize = '';
             var root = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
             var cap = (window.innerWidth < 600 ? 1.75 : 1.95) * root;
             var rooms = [];
-            for (i = 0; i < cards.length; i++) rooms.push(cards[i].querySelector('.tst__quote').clientHeight);
+            for (i = 0; i < cards.length; i++) {
+              q = cards[i].querySelector('.tst__quote');
+              if (q) q.style.fontSize = '';
+            }
+            for (i = 0; i < cards.length; i++) {
+              q = cards[i].querySelector('.tst__quote');
+              rooms[i] = q ? q.clientHeight : 0;
+            }
             for (i = 0; i < cards.length; i++) {
               q = cards[i].querySelector('.tst__quote');
               room = rooms[i];
+              if (!q || !room) continue;
               range.selectNodeContents(q);
               lo = parseFloat(getComputedStyle(q).fontSize);
               hi = cap;
@@ -9495,14 +9559,11 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
           track.insertBefore(before, real[0]);
           track.appendChild(after);
 
+          var dragging = false;
           function setWidth() { return firstAfter.offsetLeft - real[0].offsetLeft; }
-          function jump(by) {
-            var old = track.style.scrollBehavior;
-            track.style.scrollBehavior = 'auto';
-            track.scrollLeft += by;
-            track.style.scrollBehavior = old;
-          }
+          function jump(by) { track.scrollLeft += by; }        /* instant: the row has no smooth scrolling in CSS */
           function settle() {
+            if (dragging) return;
             var w = setWidth();
             if (w <= 0) return;
             var start = real[0].offsetLeft - track.firstElementChild.offsetLeft;   /* scroll position of the first real card */
@@ -9516,12 +9577,14 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 
           jump(setWidth());                         /* start on the real set */
 
+          /* wait until the row has really stopped (touchpad and phone swipes keep gliding) */
           var timer;
           if ('onscrollend' in window) track.addEventListener('scrollend', settle);
           track.addEventListener('scroll', function () {
             clearTimeout(timer);
-            timer = setTimeout(settle, 160);
+            timer = setTimeout(settle, 400);
           }, { passive: true });
+
           var refit;
           window.addEventListener('resize', function () {
             clearTimeout(refit);
@@ -9530,8 +9593,53 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
           window.addEventListener('load', fit);                                   /* again once the real font is in */
           if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 
-          prev.addEventListener('click', function () { settle(); track.scrollBy({ left: -step(), behavior: 'smooth' }); });
-          next.addEventListener('click', function () { settle(); track.scrollBy({ left: step(), behavior: 'smooth' }); });
+          function go(dir) {
+            settle();
+            track.scrollBy({ left: dir * step(), behavior: 'smooth' });
+          }
+          prev.addEventListener('click', function () { go(-1); });
+          next.addEventListener('click', function () { go(1); });
+
+          /* ---------- drag with the mouse (fingers and touchpads already scroll natively) ---------- */
+          var startX = 0, startLeft = 0, moved = 0, lastX = 0, lastT = 0, speed = 0;
+          track.addEventListener('pointerdown', function (e) {
+            if (e.pointerType !== 'mouse' || e.button !== 0) return;
+            dragging = true;
+            moved = 0; speed = 0;
+            startX = lastX = e.clientX;
+            startLeft = track.scrollLeft;
+            lastT = e.timeStamp;
+            track.classList.add('is-dragging');
+            track.setPointerCapture(e.pointerId);
+          });
+          track.addEventListener('pointermove', function (e) {
+            if (!dragging) return;
+            var dx = e.clientX - startX;
+            moved = Math.max(moved, Math.abs(dx));
+            track.scrollLeft = startLeft - dx;
+            var dt = e.timeStamp - lastT;
+            if (dt > 0) speed = (e.clientX - lastX) / dt;            /* px per ms, for a little throw */
+            lastX = e.clientX; lastT = e.timeStamp;
+          });
+          function endDrag(e) {
+            if (!dragging) return;
+            dragging = false;
+            track.classList.remove('is-dragging');
+            if (track.hasPointerCapture && track.hasPointerCapture(e.pointerId)) track.releasePointerCapture(e.pointerId);
+            /* land on the nearest card, carried a bit further by a quick flick */
+            var target = track.scrollLeft - speed * 180;
+            var origin = track.firstElementChild.offsetLeft, best = target, dist = Infinity;
+            for (var k = 0; k < track.children.length; k++) {
+              var x = track.children[k].offsetLeft - origin;
+              if (Math.abs(x - target) < dist) { dist = Math.abs(x - target); best = x; }
+            }
+            track.scrollTo({ left: best, behavior: 'smooth' });
+          }
+          track.addEventListener('pointerup', endDrag);
+          track.addEventListener('pointercancel', endDrag);
+          /* a drag must not also count as a click on a card */
+          track.addEventListener('click', function (e) { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
+          track.addEventListener('dragstart', function (e) { e.preventDefault(); });
         })();
       </script>
     </div>
@@ -9946,62 +10054,70 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 -->
 
 <!-- =====================================================================
-     BLISSIFY — FOOTER
-     Replaces the old footer: the <style> that switched between .foot/.footer,
-     the <iframe class="foot" src="footer/footer.html"> and the
-     <footer class="footer"> with the background image.
-     One footer for every screen size. CSS is scoped with the .ft prefix.
-
+     BLISSIFY — FOOTER (navy)
      From top to bottom:
-       1. brand-colour waves that move sideways
-       2. white band: Services / Academy / Social / Contact Us
-       3. navy band: the partners line, the partner logos in two rows across the page
-          (navy so the white logos show), and the Blissify logo
-          (assets/logos/Main.png) as a big faded mark behind them
+       1. Services / Academy / Social / Contact Us on the team photo (navy layer),
+          the photo fades out going down
+       2. the Blissify logo (assets/logos/Main.png) big and white,
+          fading in from the columns and cut by the bottom of the page
+     CSS is scoped with the .ft prefix.
      ===================================================================== -->
 <style>
   .ft {
     --ft-navy: var(--brand-navy, #1b1851);
     --ft-yellow: var(--brand-yellow, #FFC70A);
     --ft-red: var(--brand-red, #EF4242);
-    --ft-mark: rgba(27, 24, 81, .06);      /* colour of the faded logo behind the partners */
+    /* TO EDIT THE BIG LOGO AT THE BOTTOM:
+       --ft-word-w    = its width (over 100% = it runs off the sides)
+       --ft-word-cut  = how much hides below the page edge (more minus = more hidden)
+       --ft-word-fade = where it starts to show (0% = solid from the top, 60% = fades in late) */
+    --ft-word-w: 104%;
+    --ft-word-cut: -9%;
+    --ft-word-fade: 45%;
+    /* TO EDIT THE PHOTO BEHIND THE COLUMNS:
+       --ft-photo      = the photo
+       --ft-shade      = navy layer on the photo (last number = strength, 0 to 1)
+       --ft-photo-fade = where it starts to disappear (it is gone before the logo) */
+    --ft-photo: url("assets/selected-photos/testimonial-01.webp");
+    --ft-shade: rgba(27, 24, 81, .78);
+    --ft-photo-fade: 35%;
+    position: relative;
     display: block;
     margin: 0;
     padding: 0;
-    background: var(--ft-navy);
+    /* navy that gets a little lighter towards the bottom: the "shade going down" */
+    background: linear-gradient(to bottom, var(--ft-navy) 0%, var(--ft-navy) 45%, #2c2966 100%);
     color: #fff;
     font-family: bb, sans-serif;
     overflow: hidden;
   }
   .ft *, .ft *::before, .ft *::after { box-sizing: border-box; }
 
-  /* ---------- 1. the waves: three brand-colour layers sliding sideways (white in front) ---------- */
-  .ft__waves { position: relative; height: clamp(64px, 9vw, 130px); overflow: hidden; }
-  .ft__wave {
+  /* the team photo behind the columns: navy on top of it, and it fades away going down,
+     so the big logo at the bottom sits on plain navy */
+  .ft__top { position: relative; }
+  .ft__top::before {
+    content: "";
     position: absolute;
-    left: 0; bottom: 0;
-    width: calc(100% + var(--tile));
-    background-repeat: repeat-x;
-    background-size: var(--tile) 100%;
-    animation: ftWave var(--time) linear infinite;
-    will-change: transform;
+    inset: 0;
+    background:
+      linear-gradient(var(--ft-shade), var(--ft-shade)),
+      var(--ft-photo) center 30% / cover no-repeat;
+    -webkit-mask-image: linear-gradient(to bottom, #000 var(--ft-photo-fade), transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 var(--ft-photo-fade), transparent 100%);
+    pointer-events: none;
   }
-  .ft__wave--yellow { --tile: 1100px; --time: 19s; height: 100%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 100' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C100 0 200 0 300 50 C400 100 500 100 600 50 V100 H0 Z' fill='%23FFFFFF'/%3E%3C/svg%3E"); }   /* back wave: white */
-  .ft__wave--red    { --tile: 760px;  --time: 13s; height: 78%;  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 100' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C100 0 200 0 300 50 C400 100 500 100 600 50 V100 H0 Z' fill='%23EF4242'/%3E%3C/svg%3E"); animation-direction: reverse; }
-  .ft__wave--white  { --tile: 920px;  --time: 9s;  height: 56%;  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 100' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C100 0 200 0 300 50 C400 100 500 100 600 50 V100 H0 Z' fill='%23FFC70A'/%3E%3C/svg%3E"); }   /* front wave: yellow, melts into the yellow band */
-  @keyframes ftWave { to { transform: translateX(calc(var(--tile) * -1)); } }
+  .ft__top > .ft__cols { position: relative; }   /* the columns sit above the photo */
 
-  /* ---------- 2. the white band: the four columns ---------- */
-  .ft__sea { margin-top: -1px; background: var(--ft-yellow); color: var(--ft-navy); }
+  /* ---------- 1. the four columns, on navy ---------- */
   .ft__cols {
     display: grid;
     grid-template-columns: 1.35fr 1fr 1.1fr 1fr;
     gap: clamp(28px, 4vw, 64px);
     max-width: 1280px;
     margin: 0 auto;
-    padding: clamp(20px, 3vw, 44px) 5% clamp(44px, 5.5vw, 80px);
+    padding: clamp(56px, 6vw, 96px) 5% clamp(28px, 3.5vw, 48px);
   }
-  /* on white the column titles are red (yellow is unreadable on white) and the links navy */
   .ft .ft__head {
     margin: 0 0 16px;
     font-family: bb, sans-serif;
@@ -10009,7 +10125,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: .5px;
-    color: var(--ft-navy);
+    color: var(--ft-yellow);
   }
   .ft .ft__list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
   .ft .ft__list li { margin: 0; padding: 0; }
@@ -10018,11 +10134,11 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     font-weight: 400;
     line-height: 1.4;
     text-decoration: none;
-    color: var(--ft-navy);
+    color: #fff;
     overflow-wrap: anywhere;
   }
-  .ft__list a:hover { color: var(--ft-red); text-decoration: underline; }
-  .ft__list a:focus-visible { outline: 3px solid var(--ft-navy); outline-offset: 3px; border-radius: 4px; }
+  .ft__list a:hover { color: var(--ft-yellow); text-decoration: underline; }
+  .ft__list a:focus-visible { outline: 3px solid var(--ft-yellow); outline-offset: 3px; border-radius: 4px; }
   .ft .ft__sub {
     margin: 0 0 8px;
     opacity: 1;
@@ -10030,9 +10146,8 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     font-weight: 600;
     letter-spacing: .3px;
     text-align: inherit;
-    color: var(--ft-navy);
+    color: #fff;
   }
-  /* social icons: the site's own icon files (assets/socialmedia), in a row */
   .ft .ft__icons { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
   .ft .ft__icons li { margin: 0; padding: 0; }
   .ft .ft__icons + .ft__sub { margin-top: 18px; }
@@ -10040,15 +10155,14 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     display: grid;
     place-items: center;
     width: 42px; height: 42px;
-    border: 2px solid var(--ft-navy);
+    border: 2px solid #fff;
     border-radius: 50%;
-    color: var(--ft-navy);
+    color: #fff;
     text-decoration: none;
   }
-  .ft__ico img { display: block; width: 20px; height: 20px; object-fit: contain; pointer-events: none; }
-  .ft__ico:hover { border-color: var(--ft-red); color: var(--ft-red); }
-  .ft__ico:focus-visible { outline: 3px solid var(--ft-navy); outline-offset: 3px; }
-  /* on a real server the icon file is used as a mask, so it takes the brand colour (no filter trick) */
+  .ft__ico img { display: block; width: 20px; height: 20px; object-fit: contain; pointer-events: none; filter: brightness(0) invert(1); }
+  .ft__ico:hover { border-color: var(--ft-yellow); color: var(--ft-yellow); }
+  .ft__ico:focus-visible { outline: 3px solid var(--ft-yellow); outline-offset: 3px; }
   .ft--mask .ft__ico img { display: none; }
   .ft--mask .ft__ico::before {
     content: "";
@@ -10058,103 +10172,38 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
             mask: var(--ico) center / contain no-repeat;
   }
 
-  /* ---------- 3. the navy band at the bottom: partners over the faded logo ---------- */
-  .ft__partners {
-    position: relative;
-    padding: clamp(44px, 5.5vw, 80px) 0 clamp(44px, 5.5vw, 84px);
-    background: #fff;
-    color: var(--ft-navy);
-    overflow: hidden;
-  }
-  /* the faded logo sits at the bottom of the band, behind the logos row */
-  .ft__mark {
-    position: absolute;
-    left: 2%; right: 2%; bottom: clamp(8px, 1.4vw, 22px);
-    height: 78%;
+  /* ---------- 2. the big Blissify logo, fading in from the columns and cut by the bottom edge ---------- */
+  .ft__word {
+    width: var(--ft-word-w);
+    max-width: none;
+    margin: clamp(8px, 2vw, 32px) 0 var(--ft-word-cut) calc((100% - var(--ft-word-w)) / 2);
     pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 var(--ft-word-fade));
+            mask-image: linear-gradient(to bottom, transparent 0%, #000 var(--ft-word-fade));
   }
-  .ft__mark img {
-  display: block;
-  width: 100%; height: 100%;
-  max-width: none;
-  object-fit: contain;
-  object-position: center bottom;
-  opacity: .06;
-}
-  /* on a real server the PNG is used as a mask, so the mark is one flat brand tone */
-  .ft__mark.is-masked {
-    background: var(--ft-mark);
-    -webkit-mask: url("assets/logos/Main.png") center bottom / contain no-repeat;
-            mask: url("assets/logos/Main.png") center bottom / contain no-repeat;
-  }
-  .ft__mark.is-masked img { display: none; }
-
-  .ft .ft__grow {
-    position: relative;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 5%;
-    font-family: bb, sans-serif;
-    font-size: clamp(1.3rem, 2.4vw, 2rem);
-    font-weight: 600;
-    line-height: 1.25;
-    letter-spacing: .5px;
-    text-align: center;
-    color: var(--ft-navy);
-  }
-  .ft__grow span { color: var(--ft-red); }
-
-  /* partner logos: still (no motion), two rows across the whole page on desktop */
-  .ft .ft__logos {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    row-gap: clamp(16px, 2.2vw, 30px);
-    margin: clamp(22px, 3vw, 40px) 0 0;
-    padding: 0 3%;
-    list-style: none;
-  }
-  .ft .ft__logos li {
-    flex: 0 0 calc(100% / 11);            /* 22 logos = 2 rows of 11 */
-    display: grid;
-    place-items: center;
-    margin: 0;
-    padding: 0 clamp(6px, 1vw, 16px);
-  }
-  .ft__logos img {
+  .ft__word img {
     display: block;
     width: 100%;
-    max-width: 132px;
-    height: clamp(40px, 4.6vw, 64px);
-    object-fit: contain;
-    pointer-events: none;
+    height: auto;
+    max-width: none;
+    filter: brightness(0) invert(1);   /* the navy logo turned white */
   }
-  /* a dark logo cannot be seen on navy: add class="ft__logo--onwhite" to its <li> for a white plate */
-  .ft .ft__logos li.ft__logo--onwhite img { padding: 8px 10px; border-radius: 12px; background: #fff; }
 
   @media (max-width: 991px) {
     .ft__cols { grid-template-columns: 1fr 1fr; }
-    .ft .ft__logos li { flex-basis: calc(100% / 6); }     /* smaller screens: more rows, readable logos */
+  }
+  @media (max-width: 767px) {
+    /* phones: only "bliss" fits, like the reference */
+    .ft { --ft-word-w: 170%; --ft-word-cut: -15%; }
+    .ft__word { margin-left: -3%; }
   }
   @media (max-width: 559px) {
     .ft__cols { grid-template-columns: 1fr; gap: 32px; }
-    .ft .ft__logos li { flex-basis: 25%; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .ft__wave { animation: none; }
   }
 </style>
 
 <footer class="ft" id="footer">
-  <div class="ft__waves" aria-hidden="true">
-    <div class="ft__wave ft__wave--yellow"></div>
-    <div class="ft__wave ft__wave--red"></div>
-    <div class="ft__wave ft__wave--white"></div>
-  </div>
-
-  <div class="ft__sea">
+  <div class="ft__top">
     <div class="ft__cols">
       <nav aria-labelledby="ft-services">
         <h2 class="ft__head" id="ft-services">Services</h2>
@@ -10205,62 +10254,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     </div>
   </div>
 
-  <div class="ft__partners">
-    <div class="ft__mark" id="ft-mark" aria-hidden="true"><img src="assets/logos/Main.png" alt=""></div>
-
-    <h2 class="ft__grow">Organizations That Chose to Grow With <img src="assets/logos/Main.png" alt="Blissify" style="display:inline-block;height:1em;width:auto;vertical-align:-0.12em;"></h2>
-    <ul class="ft__logos">
-  <li><img src="assets/partners/Company Profile .png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (1).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (2).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (3).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (4).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (5).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (6).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (7).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (8).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (9).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (10).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (11).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (12).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (13).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (14).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (15).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (16).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (17).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (18).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (19).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (20).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (21).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (22).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (23).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (24).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (25).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (26).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (27).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (28).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (29).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (30).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (31).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (32).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (33).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (34).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (35).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (36).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (37).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (38).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (39).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (40).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (41).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (42).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (43).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (44).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (45).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (46).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (47).png" alt="" loading="eager"></li>
-  <li><img src="assets/partners/Company Profile  (48).png" alt="" loading="eager"></li>
-</ul>
-  </div>
+  <div class="ft__word" aria-hidden="true"><img src="assets/logos/Main.png" alt=""></div>
 
   <script>
     (function () {
@@ -10286,7 +10280,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
 </footer>
 <!-- =====================================================================
      BLISSIFY — TRACKING EVENTS (Meta Pixel)
-     Paste this block right before </body> (after </footer>).
+          Paste this block right before the end of the body, after the footer.
      It adds nothing visible. It only reports what visitors do to the
      Meta Pixel that is already installed at the top of this page.
 
@@ -10392,7 +10386,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
   })();
 </script>
 <script>
-/* Insert in <script> tags immediately before </body>. */
+/* Insert in <script> tags immediately before the end of the body. */
 (function () {
   'use strict';
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
