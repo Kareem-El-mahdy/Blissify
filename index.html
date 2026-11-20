@@ -9071,7 +9071,8 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     const anchor = Math.min(innerHeight * .46, innerHeight - size - 100);
     const progress = Math.max(0, Math.min(1, (anchor - rect.top - start) / distance));
     const y = start + progress * distance - size / 2;
-    marker.style.transform = 'translate3d(-50%,' + y.toFixed(2) + 'px,0)';
+    const wx = window.__acadWaveX ? window.__acadWaveX(y + size / 2) : null;
+    marker.style.transform = wx === null ? 'translate3d(-50%,' + y.toFixed(2) + 'px,0)' : 'translate3d(' + (wx - size / 2).toFixed(2) + 'px,' + y.toFixed(2) + 'px,0)';
     cube.style.transform = 'none';
     rail.style.top = start.toFixed(2) + 'px';
     rail.style.height = distance.toFixed(2) + 'px';
@@ -9096,6 +9097,80 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
   schedule();
 })();
 
+</script>
+
+<script>
+/* Phones only: a wavy rail that swings to the empty side of each course card
+   (card on the right -> line on the left, and the other way round).
+   The cube rides on this line: its x follows the curve, its y follows the scroll. */
+(function () {
+  var section = document.getElementById('academy');
+  if (!section) return;
+  var journey = section.querySelector('.acad__journey');
+  var finish = section.querySelector('.acad__finish');
+  var marker = section.querySelector('.acad__traveller');
+  if (!journey || !finish || !marker) return;
+  var mq = matchMedia('(max-width: 767px)');
+  var NS = 'http://www.w3.org/2000/svg';
+  var svg = null, fill = null, key = '', ys = [], xs = [], ls = [], total = 0;
+
+  function el(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function build() {
+    if (svg) svg.remove();
+    var jr = journey.getBoundingClientRect(), W = jr.width, H = jr.height;
+    var courses = [].slice.call(section.querySelectorAll('.acad__course'));
+    var gold = getComputedStyle(courses[0]).backgroundColor;
+    var pts = courses.map(function (c) {
+      var r = c.getBoundingClientRect(), right = r.left + r.width / 2 > jr.left + W / 2;
+      return { x: right ? W * 0.13 : W * 0.87, bot: r.bottom - jr.top, top: r.top - jr.top,
+               cy: (r.top + r.bottom) / 2 - jr.top, edge: right ? r.left - jr.left : r.right - jr.left };
+    });
+    var endY = finish.getBoundingClientRect().top - jr.top + marker.offsetHeight / 2 + 16;
+    var d = 'M' + pts[0].x + ' ' + pts[0].cy;
+    pts.forEach(function (p, i) {
+      var nx = pts[i + 1] ? pts[i + 1].x : W / 2;
+      var y0 = p.bot + 6, y1 = pts[i + 1] ? pts[i + 1].top - 6 : endY - 24, my = (y0 + y1) / 2;
+      d += ' L' + p.x + ' ' + y0 + ' C' + p.x + ' ' + my + ' ' + nx + ' ' + my + ' ' + nx + ' ' + y1;
+      d += pts[i + 1] ? ' L' + nx + ' ' + pts[i + 1].cy : ' L' + nx + ' ' + endY;
+    });
+    svg = el('svg', { 'class': 'acad__wave', 'aria-hidden': 'true', width: W, height: H, viewBox: '0 0 ' + W + ' ' + H });
+    var base = el('path', { d: d, fill: 'none', stroke: 'rgba(27,24,81,.16)', 'stroke-width': 2.5, 'stroke-linecap': 'round' }, svg);
+    pts.forEach(function (p) {
+      el('line', { x1: p.x, y1: p.cy, x2: p.edge, y2: p.cy, stroke: 'rgba(27,24,81,.3)', 'stroke-width': 1.5, 'stroke-dasharray': '3 3' }, svg);
+    });
+    fill = el('path', { d: d, fill: 'none', stroke: gold, 'stroke-width': 2.5, 'stroke-linecap': 'round' }, svg);
+    pts.forEach(function (p) {
+      el('circle', { cx: p.x, cy: p.cy, r: 5.5, fill: '#fff', stroke: gold, 'stroke-width': 3 }, svg);
+    });
+    journey.insertBefore(svg, journey.firstChild);
+    total = base.getTotalLength();
+    var n = Math.max(2, Math.ceil(total / 3));
+    ys = []; xs = []; ls = [];
+    for (var k = 0; k <= n; k++) {
+      var l = total * k / n, pt = base.getPointAtLength(l);
+      ys.push(pt.y); xs.push(pt.x); ls.push(l);
+    }
+    fill.setAttribute('stroke-dasharray', total);
+  }
+  window.__acadWaveX = function (cy) {
+    if (!mq.matches) { if (svg) svg.style.display = 'none'; return null; }
+    var jr = journey.getBoundingClientRect();
+    var k = Math.round(jr.width) + 'x' + Math.round(jr.height) + 'x' + Math.round(finish.getBoundingClientRect().top - jr.top);
+    if (k !== key || !svg) { key = k; build(); }
+    svg.style.display = 'block';
+    var lo = 0, hi = ys.length - 1;
+    if (cy <= ys[0]) lo = hi = 0; else if (cy >= ys[hi]) lo = hi;
+    else { while (hi - lo > 1) { var m = (lo + hi) >> 1; if (ys[m] <= cy) lo = m; else hi = m; } }
+    var t = hi === lo ? 0 : (cy - ys[lo]) / ((ys[hi] - ys[lo]) || 1);
+    fill.setAttribute('stroke-dashoffset', total - (ls[lo] + t * (ls[hi] - ls[lo])));
+    return xs[lo] + t * (xs[hi] - xs[lo]);
+  };
+})();
 </script>
 
   <div class="container textSliderWrapper">
@@ -9526,7 +9601,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
             var cards = track.querySelectorAll('.tst__card--quote');
             var i, q, lo, hi, mid, room, range = document.createRange();
             var root = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-            var cap = (window.innerWidth < 600 ? 1.05 : 1.95) * root;
+            var cap = (window.innerWidth < 600 ? 1.3 : 1.95) * root;
             var rooms = [];
             for (i = 0; i < cards.length; i++) {
               q = cards[i].querySelector('.tst__quote');
@@ -10499,22 +10574,19 @@ if (window.BlissifyAssets) window.BlissifyAssets.start();
   .vm blockquote.vm__quote { font-size: .8rem !important; margin-top: 8px !important; max-width: 19rem !important; }
   .vm__sign { width: 70px !important; height: auto !important; margin-top: 4px !important; }
 
-  /* ---- academy: zigzag like the desktop, but small and close together ---- */
-  .acad { --acad-gutter: 30px; --acad-cube: 40px; padding: 48px 10px 40px; }
-  .acad .acad__step { grid-template-columns: minmax(0, 1fr) var(--acad-gutter) minmax(0, 1fr); min-height: 0; padding: 0; margin-bottom: -46px; }
-  .acad .acad__step:nth-child(odd) .acad__course { grid-column: 3; }
-  .acad .acad__step:nth-child(even) .acad__course { grid-column: 1; }
-  .acad .acad__step:nth-child(odd) .acad__course,
-  .acad .acad__step:nth-child(even) .acad__course { padding: 12px 11px; border-radius: 14px; }
-  .acad .acad__step:nth-child(odd) .acad__course::before { right: 100%; left: auto; }
-  .acad .acad__step:nth-child(even) .acad__course::before { left: 100%; right: auto; }
-  .acad .acad__step .acad__course::before { width: calc(var(--acad-gutter) / 2); }
-  .acad .acad__node { grid-column: 2; width: 10px; height: 10px; border-width: 2px; box-shadow: 0 0 0 3px #fff; }
-  .acad .acad__rail, .acad .acad__traveller { left: 50%; }
-  .acad .acad__course h3 { font-size: 14px; margin-bottom: 6px; }
-  .acad .acad__course p { font-size: 10.5px; line-height: 1.45; }
+  /* ---- academy: wavy line (drawn by script) that swings to the empty side of each card ---- */
+  .acad { --acad-cube: 40px; padding: 48px 12px 40px; }
+  .acad .acad__step { display: block; min-height: 0; padding: 0 0 44px; margin: 0; pointer-events: none; }
+  .acad .acad__course { width: 57%; padding: 12px 12px 13px; border-radius: 14px; pointer-events: auto; }
+  .acad .acad__step:nth-child(odd) .acad__course { margin-left: auto; }
+  .acad .acad__step:nth-child(even) .acad__course { margin-right: auto; }
+  .acad .acad__course::before, .acad .acad__node, .acad .acad__rail { display: none !important; }
+  .acad .acad__traveller { left: 0; }
+  .acad__wave { position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none; overflow: visible; }
+  .acad .acad__course h3 { font-size: 15px; margin-bottom: 6px; }
+  .acad .acad__course p { font-size: 11px; line-height: 1.45; }
   .acad .acad__num { width: 20px; height: 20px; font-size: 11px; margin-bottom: 6px; }
-  .acad .acad__course-book { min-height: 30px; padding: 6px 12px; margin-top: 9px; font-size: 11px; }
+  .acad .acad__course-book { min-height: 30px; padding: 6px 14px; margin-top: 9px; font-size: 11px; }
   .acad__head { margin-bottom: 22px; }
   .acad__tagline { font-size: 18px !important; margin-bottom: 8px !important; }
   .acad__title { font-size: 24px !important; margin-bottom: 8px !important; }
@@ -10528,6 +10600,7 @@ if (window.BlissifyAssets) window.BlissifyAssets.start();
   .tst blockquote.tst__quote--m { font-size: .85rem; }
   .tst blockquote.tst__quote--s { font-size: .98rem; }
   .tst .tst__card { border-radius: 18px; }
+  .tst__card--photo { aspect-ratio: 1 / 1.2 !important; min-height: 0 !important; }
 
   /* ---- contact form ---- */
   .talk__form { padding: 24px 16px 110px !important; }
