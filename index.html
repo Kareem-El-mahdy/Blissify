@@ -9059,7 +9059,7 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
   if (!journey || !first || !finish || !marker || !cube || !rail) return;
   section.dataset.timelineReady = 'true';
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  let frame = 0, active = true;
+  let frame = 0, active = true, smooth = null;
   function render() {
     frame = 0;
     const rect = journey.getBoundingClientRect();
@@ -9069,7 +9069,11 @@ html.blissify-loading, html.blissify-loading body { overflow: hidden; }
     const end = finish.getBoundingClientRect().top - rect.top + size / 2 + 16;
     const distance = Math.max(1, end - start);
     const anchor = Math.min(innerHeight * .46, innerHeight - size - 100);
-    const progress = Math.max(0, Math.min(1, (anchor - rect.top - start) / distance));
+    const target = Math.max(0, Math.min(1, (anchor - rect.top - start) / distance));
+    /* ease towards the scroll position so the cube glides instead of jumping */
+    if (smooth === null || reduced.matches) smooth = target; else smooth += (target - smooth) * 0.055;
+    if (Math.abs(target - smooth) < 0.0004) smooth = target; else schedule();
+    const progress = smooth;
     const y = start + progress * distance - size / 2;
     const wx = window.__acadWaveX ? window.__acadWaveX(y + size / 2) : null;
     marker.style.transform = wx === null ? 'translate3d(-50%,' + y.toFixed(2) + 'px,0)' : 'translate3d(' + (wx - size / 2).toFixed(2) + 'px,' + y.toFixed(2) + 'px,0)';
